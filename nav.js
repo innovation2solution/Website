@@ -1,26 +1,15 @@
 (function() {
-    // 1. ANALYTICS (G-72GC5HPZWV)
-    const GA_ID = 'G-72GC5HPZWV';
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
-    document.head.appendChild(script);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', GA_ID);
-
-    // 2. DETECT ACTIVE PAGE
+    // 1. ANALYTICS & NAV INJECTION (Keep your existing G-ID logic here)
     const currentPath = window.location.pathname.split("/").pop() || "index.html";
 
     const navHTML = `
-    <nav class="main-nav">
+    <nav class="main-nav" id="main-nav">
         <a href="index.html" class="nav-logo">
             <img src="Copy of i2s_logo copy.png" alt="Innovation 2 Solution Logo">
             <span>Innovation<small>2</small>Solution</span>
         </a>
         
-        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu" aria-expanded="false">
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Open Menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -37,26 +26,23 @@
         <a href="contact.html" class="nav-cta">Book Audit</a>
     </nav>`;
 
-    // Render Navigation
     document.body.insertAdjacentHTML('afterbegin', navHTML);
-    
-    // MOBILE MENU FUNCTION (Moved inside to ensure it finds the elements)
-    const toggle = document.getElementById('mobile-toggle');
-    const links = document.getElementById('nav-links');
-    
-    if (toggle && links) {
-        toggle.addEventListener('click', () => {
-            const isOpen = links.classList.toggle('mobile-open');
+
+    // 2. THE FIX: Global Event Listener (Event Delegation)
+    document.addEventListener('click', function (event) {
+        const toggle = document.getElementById('mobile-toggle');
+        const links = document.getElementById('nav-links');
+
+        // Check if the click was on the toggle or any of its children (the spans)
+        if (event.target.closest('#mobile-toggle')) {
+            const isActive = links.classList.toggle('mobile-open');
             toggle.classList.toggle('is-active');
-            toggle.setAttribute('aria-expanded', isOpen);
-        });
-    }
+            toggle.setAttribute('aria-expanded', isActive);
+        } else if (!event.target.closest('#main-nav')) {
+            // Optional: Close menu if clicking outside
+            links.classList.remove('mobile-open');
+            toggle.classList.remove('is-active');
+            toggle.setAttribute('aria-expanded', 'false');
+        }
+    });
 })();
-
-// FORM PROCESSING LOGIC (Keep this at the bottom)
-document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.getElementById('contact-form');
-    if (!contactForm) return;
-
-    // ... (rest of your existing form logic)
-});

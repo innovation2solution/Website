@@ -1,72 +1,33 @@
-/* --- Add/Update these specific sections in your styles.css --- */
+/* --- Add this to the bottom of styles.css to override previous faults --- */
 
-/* Fix: High Z-Index to stay above Hero Sections */
+/* Fix 1: Ensure the container doesn't get hidden by hero elements */
 .main-nav {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1100px;
-    z-index: 9999; /* Increased */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
+    z-index: 99999 !important; /* Force priority */
+    background: rgba(15, 23, 42, 0.95) !important; /* Darker for contrast */
 }
 
-/* Accessibility: Clear Focus States */
-.nav-links a:focus {
-    outline: 2px solid var(--teal);
-    outline-offset: 4px;
-}
-
-/* Mobile Toggle Improvements */
-.mobile-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 10px;
-    z-index: 10001;
-}
-
-/* Hamburger Animation to 'X' */
-.mobile-toggle.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.mobile-toggle.is-active span:nth-child(2) { opacity: 0; }
-.mobile-toggle.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
+/* Fix 2: Explicit Mobile Menu Styles */
 @media (max-width: 850px) {
-    .nav-links {
-        display: none;
+    #nav-links {
+        display: none; /* Hidden by default */
         position: absolute;
-        top: 80px; /* Adjusted spacing */
+        top: 100%; /* Sits right under the nav bar */
         left: 0;
         width: 100%;
-        background: #0f172a;
+        background: #0f172a; /* Solid background so text is readable */
         flex-direction: column;
-        padding: 30px 20px;
-        border-radius: 25px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        gap: 15px; /* Better touch spacing */
+        padding: 2rem;
+        border-bottom: 2px solid var(--teal);
     }
 
-    .nav-links.mobile-open {
-        display: flex;
-        animation: fadeInDown 0.3s ease forwards;
+    /* This class is what the JS toggles */
+    #nav-links.mobile-open {
+        display: flex !important;
+        animation: slideDown 0.3s ease-out;
     }
-
-    .mobile-toggle { display: flex; }
 }
 
-@keyframes fadeInDown {
+@keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
