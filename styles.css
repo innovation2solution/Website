@@ -148,3 +148,17 @@ body { padding-top: 100px; } /* Prevents content from hiding under fixed nav */
     margin: 5px 0;
     transition: all 0.3s ease-in-out;
 }
+/* --- Cookie Banner Animation --- */
+#cookie-banner {
+    animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slideUp {
+    from { transform: translate(-50%, 100px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Ensure the banner sits above everything else */
+#cookie-banner {
+    z-index: 10001 !important;
+}
