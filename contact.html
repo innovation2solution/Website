@@ -1,0 +1,41 @@
+<div class="glass-card">
+    <form id="contact-form" action="https://formspree.io/f/mlgodgzq" method="POST" class="space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                <input type="text" name="name" required class="w-full bg-[#020617] border border-slate-800 p-4 rounded-xl focus:border-[#38bdf8] outline-none text-white transition">
+            </div>
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Corporate Email</label>
+                <input type="email" name="email" required class="w-full bg-[#020617] border border-slate-800 p-4 rounded-xl focus:border-[#38bdf8] outline-none text-white transition">
+            </div>
+        </div>
+        
+        <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Primary Service Interest</label>
+            <select name="service" class="w-full bg-[#020617] border border-slate-800 p-4 rounded-xl focus:border-[#38bdf8] outline-none text-white transition">
+                <option>AI Strategy & Sovereignty</option>
+                <option>Enterprise Architecture</option>
+                <option>App/Mobile Development</option>
+                <option>Innovation Incubation</option>
+            </select>
+        </div>
+
+        <div class="space-y-2">
+            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest">Challenge Overview</label>
+            <textarea name="message" rows="5" required placeholder="Briefly describe the friction points..." class="w-full bg-[#020617] border border-slate-800 p-4 rounded-xl focus:border-[#38bdf8] outline-none text-white transition"></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold py-5 rounded-xl transition shadow-lg flex justify-center items-center gap-3">
+            <span id="btn-text">Request Strategic Consultation</span>
+            <div id="btn-spinner" class="hidden">
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+        </button>
+
+        <p id="form-status" class="hidden mt-4 text-center font-bold"></p>
+    </form>
+</div>
