@@ -51,7 +51,7 @@
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4">Contact</h4>
-                <p class="text-slate-400 text-sm">simon@innovation2solution.com</p>
+                <p class="text-slate-400 text-sm">enquiries@innovation2solution.com</p>
             </div>
         </div>
         <div class="text-center mt-12 pt-8 border-t border-slate-900 text-slate-500 text-xs">
@@ -91,7 +91,7 @@
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    status.innerHTML = "Success! We will be in touch shortly.";
+                    status.innerHTML = "Form successfully submitted! We will be in touch shortly.";
                     status.classList.remove("hidden", "text-red-500");
                     status.classList.add("text-green-500", "block");
                     contactForm.reset();
