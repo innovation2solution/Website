@@ -1,6 +1,6 @@
 (function() {
-    // 1. ANALYTICS (G-72GC5HPZWV)
-    const GA_ID = 'G-72GC5HPZWV';
+    // 1. ANALYTICS (G-CPJ8XCB3KE)
+    const GA_ID = 'G-CPJ8XCB3KE';
     if (!window.gtag) {
         const script = document.createElement('script');
         script.async = true;
@@ -42,7 +42,7 @@
                 <p class="text-slate-400 text-sm leading-relaxed">Bridging the gap between visionary ideas and enterprise-grade utility.</p>
             </div>
             <div>
-                <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Platform</h4>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Explore our Website</h4>
                 <ul class="text-slate-400 text-sm space-y-2">
                     <li><a href="services.html" class="hover:text-[#38bdf8] transition-colors">Services</a></li>
                     <li><a href="approach.html" class="hover:text-[#38bdf8] transition-colors">Our Approach</a></li>
@@ -55,17 +55,16 @@
                     <li><a href="privacy.html" class="hover:text-[#38bdf8] transition-colors">Privacy Policy</a></li>
                     <li><a href="terms.html" class="hover:text-[#38bdf8] transition-colors">Terms of Use</a></li>
                     <li><a href="cookies.html" class="hover:text-[#38bdf8] transition-colors">Cookie Policy</a></li>
-                    <li><a href="governance.html" class="hover:text-[#38bdf8] transition-colors">Data Governance</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Contact</h4>
                 <p class="text-slate-400 text-sm">simon@innovation2solution.com</p>
-                <a href="compliance.html" class="inline-block mt-4 text-[#38bdf8] text-xs hover:underline">Ofsted EIF 2025 Alignment</a>
+    
             </div>
         </div>
         <div class="text-center mt-12 pt-8 border-t border-slate-900 text-slate-500 text-xs">
-            &copy; 2024 Innovation2Solution. All Rights Reserved.
+            &copy; 2026 Innovation2Solution. All Rights Reserved.
         </div>
     </footer>`;
 
