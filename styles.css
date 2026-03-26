@@ -1,10 +1,13 @@
+/* --- Global Reset & Spacing --- */
+body { padding-top: 100px; } /* Prevents content from hiding under fixed nav */
+
 /* --- High-Priority Navigation Fixes --- */
 .main-nav {
     position: fixed;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90%;
+    width: 95%;
     max-width: 1100px;
     z-index: 9999 !important;
     display: flex;
@@ -15,30 +18,88 @@
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
+    transition: all 0.3s ease;
 }
+
+/* Nav Links Styling */
+.nav-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.nav-links a:hover, .nav-active { color: #38bdf8 !important; }
 
 /* Logo Dimensions Fix */
-.nav-logo img {
-    height: 40px !important; 
-    width: auto !important;
-    object-fit: contain;
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; font-weight: bold; }
+.nav-logo img { height: 35px !important; width: auto !important; }
+
+/* CTA Button */
+.nav-cta { background: #ea580c; color: white !important; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-size: 0.9rem; }
+
+/* Burger Icon Styling */
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.mobile-toggle span {
+    width: 25px;
+    height: 2px;
+    background: white;
+    transition: 0.3s;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 850px) {
+/* Mobile Responsiveness (Trigger earlier at 992px) */
+@media (max-width: 992px) {
+    .mobile-toggle { display: flex; }
     .nav-links {
         display: none;
         position: absolute;
-        top: 80px;
-        left: 0;
+        top: 70px;
+        left: 50%;
+        transform: translateX(-50%);
         width: 100%;
-        background: #0f172a !important;
+        background: #0f172a;
         flex-direction: column;
-        padding: 30px;
+        padding: 20px;
         border-radius: 20px;
+        text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .nav-links.mobile-open { display: flex !important; }
-    .nav-cta-mobile { display: block !important; }
+    .nav-links a { margin: 10px 0; font-size: 1.1rem; }
     .nav-cta { display: none !important; }
+    .nav-cta-mobile { display: block; background: #ea580c; color: white !important; padding: 12px; border-radius: 12px; margin-top: 10px; }
 }
+
+/* --- Services Page Styling Update --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 40px 0;
+}
+
+.service-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+}
+.service-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
+
+/* Footer Styling */
+.site-footer { background: #020617; border-top: 1px solid #1e293b; padding: 60px 20px; margin-top: 80px; color: #94a3b8; }
+.footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+.footer-grid h4 { color: white; margin-bottom: 20px; }
+.footer-grid ul { list-style: none; padding: 0; }
+.footer-grid ul li { margin-bottom: 10px; }
+.footer-grid a { color: #94a3b8; text-decoration: none; }
+.footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #0f172a; font-size: 0.8rem; }
