@@ -1,33 +1,39 @@
-/* --- Add this to the bottom of styles.css to override previous faults --- */
-
-/* Fix 1: Ensure the container doesn't get hidden by hero elements */
+/* 1. Ensure Nav stays on top of all page content */
 .main-nav {
-    z-index: 99999 !important; /* Force priority */
-    background: rgba(15, 23, 42, 0.95) !important; /* Darker for contrast */
+    z-index: 9999 !important; /* Higher priority */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
-/* Fix 2: Explicit Mobile Menu Styles */
+/* 2. Fix for the toggle button which was a div (now a button for accessibility) */
+.mobile-toggle {
+    background: transparent;
+    border: none;
+    padding: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 3. Animation for the Hamburger (Active State) */
+.mobile-toggle.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-toggle.is-active span:nth-child(2) { opacity: 0; }
+.mobile-toggle.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* 4. Fix Mobile Menu Display */
 @media (max-width: 850px) {
-    #nav-links {
-        display: none; /* Hidden by default */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #0f172a !important; /* Ensure solid background */
+    }
+    .nav-links.mobile-open {
+        display: flex !important;
         position: absolute;
-        top: 100%; /* Sits right under the nav bar */
+        top: 80px;
         left: 0;
         width: 100%;
-        background: #0f172a; /* Solid background so text is readable */
-        flex-direction: column;
         padding: 2rem;
-        border-bottom: 2px solid var(--teal);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
-    /* This class is what the JS toggles */
-    #nav-links.mobile-open {
-        display: flex !important;
-        animation: slideDown 0.3s ease-out;
-    }
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
