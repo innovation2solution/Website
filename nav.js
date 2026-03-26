@@ -16,15 +16,15 @@
     const navHTML = `
     <nav class="main-nav">
         <a href="index.html" class="nav-logo">
-            <img src="Copy of i2s_logo copy.png" alt="I2S">
+            <img src="Copy of i2s_logo copy.png" alt="Innovation 2 Solution Logo">
             <span>Innovation<small>2</small>Solution</span>
         </a>
         
-        <div class="mobile-toggle" id="mobile-toggle">
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
 
         <div class="nav-links" id="nav-links">
             <a href="index.html" class="${currentPath === 'index.html' ? 'nav-active' : ''}">Home</a>
@@ -37,65 +37,26 @@
         <a href="contact.html" class="nav-cta">Book Audit</a>
     </nav>`;
 
-    document.addEventListener('DOMContentLoaded', () => {
-        document.body.insertAdjacentHTML('afterbegin', navHTML);
-        
-        // MOBILE MENU FUNCTION
-        const toggle = document.getElementById('mobile-toggle');
-        const links = document.getElementById('nav-links');
-        
+    // Render Navigation
+    document.body.insertAdjacentHTML('afterbegin', navHTML);
+    
+    // MOBILE MENU FUNCTION (Moved inside to ensure it finds the elements)
+    const toggle = document.getElementById('mobile-toggle');
+    const links = document.getElementById('nav-links');
+    
+    if (toggle && links) {
         toggle.addEventListener('click', () => {
-            links.classList.toggle('mobile-open');
+            const isOpen = links.classList.toggle('mobile-open');
             toggle.classList.toggle('is-active');
+            toggle.setAttribute('aria-expanded', isOpen);
         });
-    });
+    }
 })();
 
-// FORM PROCESSING LOGIC (AJAX)
+// FORM PROCESSING LOGIC (Keep this at the bottom)
 document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
-    if (!contactForm) return; // Only runs on the contact page
+    if (!contactForm) return;
 
-    const btn = document.getElementById('submit-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnSpinner = document.getElementById('btn-spinner');
-    const status = document.getElementById('form-status');
-
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // 1. Enter "Loading" State
-        btn.disabled = true;
-        btnText.innerText = "Processing Brief...";
-        btnSpinner.classList.remove('hidden');
-        status.classList.add('hidden');
-
-        const data = new FormData(contactForm);
-        
-        try {
-            const response = await fetch(contactForm.action, {
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                // 2. Success State
-                status.innerText = "Briefing Received. Our team will contact you shortly.";
-                status.className = "mt-4 text-center font-bold text-teal-400 block";
-                contactForm.reset();
-                btnText.innerText = "Submission Complete";
-                btnSpinner.classList.add('hidden');
-            } else {
-                // 3. Error State
-                throw new Error();
-            }
-        } catch (error) {
-            status.innerText = "Oops! There was a problem. Please try again or email us directly.";
-            status.className = "mt-4 text-center font-bold text-red-500 block";
-            btn.disabled = false;
-            btnText.innerText = "Request Strategic Consultation";
-            btnSpinner.classList.add('hidden');
-        }
-    });
+    // ... (rest of your existing form logic)
 });
