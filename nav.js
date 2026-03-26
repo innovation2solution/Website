@@ -10,7 +10,7 @@
     gtag('js', new Date());
     gtag('config', GA_ID);
 
-    // 2. NAVIGATION INJECTION
+    // 2. DETECT PAGE & INJECT HEADER
     const currentPath = window.location.pathname.split("/").pop() || "index.html";
     const navHTML = `
     <nav class="main-nav">
@@ -26,56 +26,50 @@
             <a href="services.html" class="${currentPath === 'services.html' ? 'nav-active' : ''}">Services</a>
             <a href="approach.html" class="${currentPath === 'approach.html' ? 'nav-active' : ''}">Approach</a>
             <a href="about.html" class="${currentPath === 'about.html' ? 'nav-active' : ''}">About</a>
-            <a href="contact.html" class="nav-cta-mobile" style="background:#ea580c; color:white; padding:10px 20px; border-radius:50px; text-align:center; margin-top:10px; display:none;">Book Audit</a>
+            <a href="contact.html" class="nav-cta-mobile" style="background:#ea580c; color:white; padding:10px 20px; border-radius:50px; text-align:center; margin-top:10px;">Book Audit</a>
         </div>
         <a href="contact.html" class="nav-cta">Book Audit</a>
     </nav>`;
 
+    // 3. INJECT FOOTER (Fixes missing footer issue)
+    const footerHTML = `
+    <footer class="bg-[#020617] border-t border-slate-800 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <h4 class="text-white font-bold mb-4">Innovation2Solution</h4>
+                <p class="text-slate-400 text-sm leading-relaxed">Bridging the gap between visionary ideas and enterprise-grade utility.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                <ul class="text-slate-400 text-sm space-y-2">
+                    <li><a href="services.html" class="hover:text-[#38bdf8]">Services</a></li>
+                    <li><a href="approach.html" class="hover:text-[#38bdf8]">Our Approach</a></li>
+                    <li><a href="contact.html" class="hover:text-[#38bdf8]">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Contact</h4>
+                <p class="text-slate-400 text-sm">prakash@innovation2solution.com</p>
+            </div>
+        </div>
+        <div class="text-center mt-12 pt-8 border-t border-slate-900 text-slate-500 text-xs">
+            &copy; 2024 Innovation2Solution. All Rights Reserved.
+        </div>
+    </footer>`;
+
+    // Perform Injections
     document.body.insertAdjacentHTML('afterbegin', navHTML);
+    document.body.insertAdjacentHTML('beforeend', footerHTML);
     
-    // 3. MOBILE MENU LOGIC
-    const toggle = document.getElementById('mobile-toggle');
-    const links = document.getElementById('nav-links');
-    if (toggle && links) {
-        toggle.addEventListener('click', () => {
+    // 4. FIXED INTERACTIVITY (Uses Delegation to ensure click is caught)
+    document.addEventListener('click', function(e) {
+        const toggle = document.getElementById('mobile-toggle');
+        const links = document.getElementById('nav-links');
+        
+        if (e.target.closest('#mobile-toggle')) {
             const isOpen = links.classList.toggle('mobile-open');
             toggle.classList.toggle('is-active');
             toggle.setAttribute('aria-expanded', isOpen);
-        });
-    }
-
-    // 4. CONTACT FORM LOGIC
-    document.addEventListener('DOMContentLoaded', () => {
-        const contactForm = document.getElementById('contact-form');
-        if (!contactForm) return;
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const status = document.getElementById('form-status');
-            
-            btn.disabled = true;
-            status.innerText = "Processing Strategic Brief...";
-            status.className = "mt-4 text-center font-bold text-sky-400 block";
-            status.classList.remove('hidden');
-
-            try {
-                const response = await fetch(contactForm.action, {
-                    method: 'POST',
-                    body: new FormData(contactForm),
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (response.ok) {
-                    status.innerText = "Brief Received. We will contact you shortly.";
-                    status.className = "mt-4 text-center font-bold text-teal-400 block";
-                    contactForm.reset();
-                } else { throw new Error(); }
-            } catch {
-                status.innerText = "Submission error. Please email us directly.";
-                status.className = "mt-4 text-center font-bold text-red-500 block";
-                btn.disabled = false;
-            }
-        });
+        }
     });
 })();
