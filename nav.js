@@ -61,7 +61,6 @@
             <div>
                 <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Contact</h4>
                 <p class="text-slate-400 text-sm">enquiries@innovation2solution.com</p>
-                <a href="compliance.html" class="inline-block mt-4 text-[#38bdf8] text-xs hover:underline">Ofsted EIF 2025 Alignment</a>
             </div>
         </div>
         <div class="text-center mt-12 pt-8 border-t border-slate-900 text-slate-500 text-xs">
