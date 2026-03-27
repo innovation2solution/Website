@@ -42,7 +42,7 @@
                 <p class="text-slate-400 text-sm leading-relaxed">Bridging the gap between visionary ideas and enterprise-grade utility.</p>
             </div>
             <div>
-                <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Explore more/h4>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Explore more</h4>
                 <ul class="text-slate-400 text-sm space-y-2 list-none p-0">
                     <li><a href="services.html" class="hover:text-[#38bdf8] transition-colors">Services</a></li>
                     <li><a href="approach.html" class="hover:text-[#38bdf8] transition-colors">Approach</a></li>
