@@ -1,11 +1,8 @@
-/* --- Core Site Layout --- */
-body { 
-    background-color: #0f172a; 
-    margin: 0;
-    padding: 0;
-}
+/* --- Global Reset --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: #0f172a; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-/* --- Navigation Bar (The Floating Capsule) --- */
+/* --- Navigation Bar --- */
 .main-nav {
     position: fixed;
     top: 20px;
@@ -13,14 +10,14 @@ body {
     transform: translateX(-50%);
     width: 95%;
     max-width: 1100px;
-    z-index: 9999 !important;
+    z-index: 10000 !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
-    background: rgba(15, 23, 42, 0.8) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    padding: 10px 24px;
+    background: rgba(15, 23, 42, 0.75) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 100px;
 }
@@ -32,12 +29,17 @@ body {
     text-decoration: none;
     color: white;
     font-weight: 800;
-    font-size: 1.1rem;
+    white-space: nowrap;
 }
 
 .nav-logo img {
-    height: 32px;
-    width: auto;
+    height: 30px !important;
+    width: auto !important;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
@@ -46,88 +48,95 @@ body {
     margin: 0 15px;
     font-size: 0.9rem;
     font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-active { color: #38bdf8 !important; }
+
+/* The Fixed Orange CTA Button */
+.nav-cta {
+    background: #ea580c !important;
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
-}
-
-.nav-links a:hover, .nav-active { 
-    color: #38bdf8 !important; 
-}
-
-/* --- Mobile Navigation Fixes --- */
-.mobile-toggle {
-    display: none;
-    background: none;
     border: none;
-    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
 }
 
-.mobile-toggle .line {
+.nav-cta:hover {
+    background: #f97316 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+}
+
+.mobile-toggle { display: none; cursor: pointer; padding: 5px; }
+.mobile-toggle span {
     display: block;
     width: 22px;
     height: 2px;
-    background-color: white;
+    background: white;
     margin: 5px 0;
     transition: 0.3s;
 }
 
+/* --- Mobile Breakpoint --- */
 @media (max-width: 850px) {
     .mobile-toggle { display: block; }
     .nav-links {
         display: none;
         position: absolute;
-        top: 80px;
+        top: 75px;
         left: 0;
         width: 100%;
-        background: rgba(15, 23, 42, 0.95);
-        backdrop-filter: blur(20px);
+        background: rgba(15, 23, 42, 0.98);
         flex-direction: column;
         padding: 40px 20px;
-        border-radius: 24px;
+        border-radius: 30px;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        text-align: center;
-        gap: 20px;
+        gap: 25px;
     }
     .nav-links.active { display: flex !important; }
-    .nav-cta { display: none; }
+    .main-nav .nav-cta { display: none; } /* Hide button on mobile bar */
+    .nav-links .nav-cta { display: block !important; width: 100%; text-align: center; }
 }
 
-/* --- Glassmorphism Card Effects --- */
+/* --- Services Page Cards (Glassmorphism Restored) --- */
 .glass-card {
     position: relative;
-    background: rgba(30, 41, 59, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(30, 41, 59, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     border-radius: 24px;
+    padding: 40px 30px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(4px);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
 .glass-card:hover {
-    transform: translateY(-8px);
-    background: rgba(30, 41, 59, 0.6);
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    transform: translateY(-10px);
+    background: rgba(30, 41, 59, 0.6) !important;
+    border-color: rgba(56, 189, 248, 0.4) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* The accent line on top of cards */
 .card-accent {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 3px;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
     transition: 0.3s;
 }
 
-.glass-card:hover .card-accent { 
-    background: #38bdf8; 
+.glass-card:hover .card-accent {
+    background: #38bdf8;
 }
 
-/* --- Cookie Banner Animation --- */
-#cookie-banner {
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes slideUp {
-    from { transform: translate(-50%, 150%); opacity: 0; }
-    to { transform: translate(-50%, 0); opacity: 1; }
-}
+/* Special accent for the primary service */
+.glass-card.featured .card-accent { background: #ea580c; }
