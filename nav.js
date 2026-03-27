@@ -1,5 +1,5 @@
 (function() {
-    // 1. ANALYTICS (G-CPJ8XCB3KE)
+    // 1. ANALYTICS
     const GA_ID = 'G-CPJ8XCB3KE';
     if (!window.gtag) {
         const script = document.createElement('script');
@@ -12,7 +12,7 @@
         gtag('config', GA_ID);
     }
 
-    // 2. DETECT PAGE & INJECT HEADER
+    // 2. HEADER INJECTION
     const currentPath = window.location.pathname.split("/").pop() || "index.html";
     const navHTML = `
     <nav class="main-nav">
@@ -20,20 +20,20 @@
             <img src="Copy of i2s_logo copy.png" alt="I2S Logo">
             <span>Innovation<small style="color:#38bdf8">2</small>Solution</span>
         </a>
-        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu" aria-expanded="false">
-            <span class="line"></span><span class="line"></span><span class="line"></span>
-        </button>
+        <div class="mobile-toggle" id="mobile-toggle">
+            <span></span><span></span><span></span>
+        </div>
         <div class="nav-links" id="nav-links">
             <a href="index.html" class="${currentPath === 'index.html' ? 'nav-active' : ''}">Home</a>
             <a href="services.html" class="${currentPath === 'services.html' ? 'nav-active' : ''}">Services</a>
             <a href="approach.html" class="${currentPath === 'approach.html' ? 'nav-active' : ''}">Approach</a>
             <a href="about.html" class="${currentPath === 'about.html' ? 'nav-active' : ''}">About</a>
-            <a href="contact.html" class="nav-cta-mobile">Book Audit</a>
+            <a href="contact.html" class="nav-cta">Book Audit</a>
         </div>
         <a href="contact.html" class="nav-cta">Book Audit</a>
     </nav>`;
 
-    // 3. INJECT FOOTER (Updated with Simon's Email and Legal Links)
+    // 3. FOOTER INJECTION
     const footerHTML = `
     <footer class="bg-[#020617] border-t border-slate-800 py-16 mt-20">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -42,99 +42,48 @@
                 <p class="text-slate-400 text-sm leading-relaxed">Bridging the gap between visionary ideas and enterprise-grade utility.</p>
             </div>
             <div>
-                <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Explore more</h4>
+                <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Platform</h4>
                 <ul class="text-slate-400 text-sm space-y-2">
-                    <li><a href="services.html" class="hover:text-[#38bdf8] transition-colors">Services</a></li>
-                    <li><a href="approach.html" class="hover:text-[#38bdf8] transition-colors">Our Approach</a></li>
-                    <li><a href="about.html" class="hover:text-[#38bdf8] transition-colors">About Us</a></li>
+                    <li><a href="services.html" class="hover:text-[#38bdf8]">Services</a></li>
+                    <li><a href="approach.html" class="hover:text-[#38bdf8]">Approach</a></li>
+                    <li><a href="about.html" class="hover:text-[#38bdf8]">About</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Legal</h4>
                 <ul class="text-slate-400 text-sm space-y-2">
-                    <li><a href="privacy.html" class="hover:text-[#38bdf8] transition-colors">Privacy Policy</a></li>
-                    <li><a href="terms.html" class="hover:text-[#38bdf8] transition-colors">Terms of Use</a></li>
-                    <li><a href="cookies.html" class="hover:text-[#38bdf8] transition-colors">Cookie Policy</a></li>
-                    <li><a href="governance.html" class="hover:text-[#38bdf8] transition-colors">Data Governance</a></li>
+                    <li><a href="privacy.html" class="hover:text-[#38bdf8]">Privacy</a></li>
+                    <li><a href="terms.html" class="hover:text-[#38bdf8]">Terms</a></li>
+                    <li><a href="cookies.html" class="hover:text-[#38bdf8]">Cookies</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">Contact</h4>
-                <p class="text-slate-400 text-sm">enquiries@innovation2solution.com</p>
+                <p class="text-slate-400 text-sm">simon@innovation2solution.com</p>
             </div>
-        </div>
-        <div class="text-center mt-12 pt-8 border-t border-slate-900 text-slate-500 text-xs">
-            &copy; 2024 Innovation2Solution. All Rights Reserved.
         </div>
     </footer>`;
 
     document.body.insertAdjacentHTML('afterbegin', navHTML);
     document.body.insertAdjacentHTML('beforeend', footerHTML);
 
-    // 4. MOBILE MENU INTERACTIVITY FIX
-    document.addEventListener('click', function(e) {
-        const toggle = document.getElementById('mobile-toggle');
-        const links = document.getElementById('nav-links');
-        if (e.target.closest('#mobile-toggle')) {
-            const isOpen = links.classList.toggle('active'); // Toggles display via CSS
-            toggle.classList.toggle('is-active'); // For burger animation
-            toggle.setAttribute('aria-expanded', isOpen);
-        }
-    });
+    // 4. MOBILE MENU INTERACTION
+    const toggle = document.getElementById('mobile-toggle');
+    const links = document.getElementById('nav-links');
 
-    // 5. AJAX FORM HANDLER
-    const contactForm = document.getElementById("contact-form");
-    if (contactForm) {
-        contactForm.addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const status = document.getElementById("form-status");
-            const btn = document.getElementById("submit-btn");
-            const data = new FormData(event.target);
-            btn.disabled = true;
-            btn.innerText = "Sending...";
-
-            fetch(event.target.action, {
-                method: contactForm.method,
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    status.innerHTML = "Success! We will be in touch shortly.";
-                    status.className = "mt-6 text-center font-bold text-green-500 block";
-                    contactForm.reset();
-                    btn.innerText = "Sent Successfully";
-                } else { throw new Error(); }
-            }).catch(() => {
-                status.innerHTML = "Oops! Problem sending. Please try again.";
-                status.className = "mt-6 text-center font-bold text-red-500 block";
-                btn.disabled = false;
-                btn.innerText = "Request Strategic Consultation";
-            });
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            links.classList.toggle('active');
         });
     }
 
-    // 6. COOKIE CONSENT BANNER
-    const cookieHTML = `
-    <div id="cookie-banner" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[600px] bg-[#1e293b] border border-slate-700 rounded-2xl shadow-2xl p-6 z-[10001] flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur-xl bg-opacity-95 hidden">
-        <div class="text-sm text-slate-300 leading-relaxed">
-            <strong class="text-white block mb-1">Privacy</strong>
-            We use cookies to analyse traffic and ensure performance. <a href="privacy.html" class="text-[#38bdf8] underline">Read Policy</a>
-        </div>
-        <div class="flex gap-3 shrink-0">
-            <button onclick="dismissCookie(false)" class="px-5 py-2 text-xs font-bold text-slate-400 hover:text-white transition-colors">Reject</button>
-            <button onclick="dismissCookie(true)" class="px-5 py-2 text-xs font-bold bg-[#38bdf8] text-[#0f172a] rounded-lg hover:bg-white transition-all">Accept All</button>
-        </div>
-    </div>`;
-
-    document.body.insertAdjacentHTML('beforeend', cookieHTML);
-    const banner = document.getElementById('cookie-banner');
+    // 5. COOKIE BANNER
     if (!localStorage.getItem('cookieConsent')) {
-        banner.classList.remove('hidden');
-        banner.classList.add('flex');
+        const cookieHTML = `
+        <div id="cookie-banner" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); width:90%; max-width:500px; background:#1e293b; border:1px solid #334155; padding:20px; border-radius:15px; z-index:10001; display:flex; justify-content:space-between; align-items:center; box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+            <p style="color:#cbd5e1; font-size:12px; margin:0;">We use cookies for analytics and security. <a href="privacy.html" style="color:#38bdf8">Learn more</a></p>
+            <button onclick="this.parentElement.remove(); localStorage.setItem('cookieConsent', 'true');" style="background:#38bdf8; border:none; padding:5px 15px; border-radius:5px; font-weight:bold; cursor:pointer;">OK</button>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', cookieHTML);
     }
-
-    window.dismissCookie = function(accepted) {
-        localStorage.setItem('cookieConsent', accepted ? 'accepted' : 'rejected');
-        banner.remove();
-    };
 })();
