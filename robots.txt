@@ -1,12 +1,5 @@
-# Innovation2Solution Robots.txt
-# Focus: Ensure full indexing of the solution pillars and framework
-
 User-agent: *
 Allow: /
+Disallow: /assets/
 
-# Sitemaps
 Sitemap: https://www.innovation2solution.com/sitemap.xml
-
-# Prevent crawlers from indexing specific technical folders (if you add them later)
-Disallow: /assets/private/
-Disallow: /temp/
