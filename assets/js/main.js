@@ -1,9 +1,13 @@
 /**
- * Innovation 2 Solution — main.js
- * Fixed: burger menu toggle, scroll behaviour, dropdown, reveal animations
- * Place this file at the ROOT of the GitHub Pages repo (same level as index.html)
- * All HTML pages must reference it as: <script src="/main.js"></script>
- * (or as a relative path: <script src="main.js"></script> on root-level pages)
+ * Innovation 2 Solution — main.js  (FIXED v3)
+ * Save to: assets/js/main.js
+ *
+ * KEY FIX: All class names now aligned with styles.css:
+ *   Menu open state   → 'open'       (CSS line 1323: .nav-menu.open)
+ *   Dropdown open     → 'open'       (CSS: .nav-dropdown.open)
+ *   Burger active     → 'is-active'  (CSS: .nav-toggle.is-active)
+ *   Navbar scrolled   → 'scrolled'   (CSS line 236: .navbar.scrolled)
+ *   Reveal visible    → 'is-visible' (CSS line 1535: .reveal.is-visible)
  */
 
 (function () {
@@ -13,29 +17,44 @@
    * 1. BURGER / MOBILE NAV TOGGLE
    * ───────────────────────────────────────── */
   function initMobileNav() {
-    var toggle  = document.getElementById('navToggle');
-    var menu    = document.getElementById('navMenu');
-    var navbar  = document.getElementById('navbar');
+    var toggle = document.getElementById('navToggle');
+    var menu   = document.getElementById('navMenu');
+    var navbar = document.getElementById('navbar');
 
-    if (!toggle || !menu) return; // guard — elements must exist
+    if (!toggle || !menu) return;
 
-    /* Open / close */
+    function openMenu() {
+      menu.classList.add('open');           // matches .nav-menu.open in CSS
+      toggle.classList.add('is-active');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      toggle.classList.remove('is-active');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      // Close any open sub-dropdowns
+      document.querySelectorAll('.nav-dropdown.open').forEach(function (d) {
+        d.classList.remove('open');
+      });
+    }
+
+    /* Burger button click */
     toggle.addEventListener('click', function (e) {
       e.stopPropagation();
-      var isOpen = menu.classList.contains('is-open');
-
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      menu.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    /* Close when a nav link is tapped (SPA-friendly) */
+    /* Close when a non-dropdown nav link is tapped.
+       IMPORTANT: skip the Services parent .nav-link — that's handled by
+       initDropdowns() so we must NOT close the whole menu when it's tapped. */
     menu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        closeMenu();
-      });
+      if (link.classList.contains('nav-link') && link.closest('.nav-dropdown')) {
+        return; // skip dropdown parent links
+      }
+      link.addEventListener('click', closeMenu);
     });
 
     /* Close on outside click */
@@ -50,23 +69,10 @@
       if (e.key === 'Escape') closeMenu();
     });
 
-    function openMenu() {
-      menu.classList.add('is-open');
-      toggle.classList.add('is-active');
-      toggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden'; // prevent scroll behind overlay
-    }
-
-    function closeMenu() {
-      menu.classList.remove('is-open');
-      toggle.classList.remove('is-active');
-      toggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-      // Also close any open dropdowns
-      document.querySelectorAll('.nav-dropdown.is-open').forEach(function (d) {
-        d.classList.remove('is-open');
-      });
-    }
+    /* Reset on resize to desktop */
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) closeMenu();
+    });
   }
 
   /* ─────────────────────────────────────────
@@ -79,21 +85,21 @@
       var link = dropdown.querySelector('.nav-link');
       if (!link) return;
 
-      /* On mobile, tap the parent link to toggle sub-menu instead of navigating */
       link.addEventListener('click', function (e) {
-        if (window.innerWidth <= 900) {           // match your CSS breakpoint
+        if (window.innerWidth <= 768) {       // matches CSS breakpoint exactly
           e.preventDefault();
-          var isOpen = dropdown.classList.contains('is-open');
-          // Close siblings
-          dropdowns.forEach(function (d) { d.classList.remove('is-open'); });
-          if (!isOpen) dropdown.classList.add('is-open');
+          var isOpen = dropdown.classList.contains('open');
+          // Close all dropdowns first
+          dropdowns.forEach(function (d) { d.classList.remove('open'); });
+          // Toggle this one
+          if (!isOpen) dropdown.classList.add('open');
         }
       });
     });
   }
 
   /* ─────────────────────────────────────────
-   * 3. STICKY NAVBAR — add shadow on scroll
+   * 3. STICKY NAVBAR
    * ───────────────────────────────────────── */
   function initStickyNav() {
     var navbar = document.getElementById('navbar');
@@ -101,14 +107,14 @@
 
     var onScroll = function () {
       if (window.scrollY > 20) {
-        navbar.classList.add('is-scrolled');
+        navbar.classList.add('scrolled');    // matches .navbar.scrolled in CSS
       } else {
-        navbar.classList.remove('is-scrolled');
+        navbar.classList.remove('scrolled');
       }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // run once on load
+    onScroll();
   }
 
   /* ─────────────────────────────────────────
@@ -122,7 +128,7 @@
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            entry.target.classList.add('is-visible'); // matches .reveal.is-visible in CSS
             observer.unobserve(entry.target);
           }
         });
@@ -130,7 +136,6 @@
 
       targets.forEach(function (el) { observer.observe(el); });
     } else {
-      // Fallback for older browsers — just show everything
       targets.forEach(function (el) { el.classList.add('is-visible'); });
     }
   }
@@ -145,17 +150,16 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        var el     = entry.target;
-        var target = parseInt(el.getAttribute('data-count'), 10);
-        var suffix = el.getAttribute('data-suffix') || '';
+        var el       = entry.target;
+        var target   = parseInt(el.getAttribute('data-count'), 10);
+        var suffix   = el.getAttribute('data-suffix') || '';
         var duration = 1600;
-        var start  = performance.now();
+        var start    = performance.now();
 
         function tick(now) {
-          var elapsed = now - start;
+          var elapsed  = now - start;
           var progress = Math.min(elapsed / duration, 1);
-          // ease-out quad
-          progress = 1 - (1 - progress) * (1 - progress);
+          progress = 1 - (1 - progress) * (1 - progress); // ease-out quad
           el.textContent = Math.round(progress * target) + suffix;
           if (progress < 1) requestAnimationFrame(tick);
         }
@@ -192,7 +196,7 @@
   }
 
   /* ─────────────────────────────────────────
-   * INIT — run everything on DOMContentLoaded
+   * INIT
    * ───────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
     initMobileNav();
