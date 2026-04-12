@@ -1,13 +1,14 @@
 /**
- * Innovation 2 Solution — main.js  (FIXED v3)
+ * Innovation 2 Solution — main.js  (FINAL)
  * Save to: assets/js/main.js
  *
- * KEY FIX: All class names now aligned with styles.css:
- *   Menu open state   → 'open'       (CSS line 1323: .nav-menu.open)
- *   Dropdown open     → 'open'       (CSS: .nav-dropdown.open)
- *   Burger active     → 'is-active'  (CSS: .nav-toggle.is-active)
- *   Navbar scrolled   → 'scrolled'   (CSS line 236: .navbar.scrolled)
- *   Reveal visible    → 'is-visible' (CSS line 1535: .reveal.is-visible)
+ * Changes from previous version:
+ *   1. initMobileNav: closeMenu() no longer fires on .nav-dropdown parent links.
+ *      Previously every link tap including "Services" triggered closeMenu(),
+ *      which immediately closed the menu before the dropdown could open.
+ *   2. initDropdowns: uses class 'open' (matches CSS .nav-dropdown.open)
+ *   3. initStickyNav: uses class 'scrolled' (matches CSS .navbar.scrolled)
+ *   4. resize listener added — resets menu cleanly when going back to desktop
  */
 
 (function () {
@@ -24,7 +25,7 @@
     if (!toggle || !menu) return;
 
     function openMenu() {
-      menu.classList.add('open');           // matches .nav-menu.open in CSS
+      menu.classList.add('open');
       toggle.classList.add('is-active');
       toggle.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
@@ -35,24 +36,23 @@
       toggle.classList.remove('is-active');
       toggle.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
-      // Close any open sub-dropdowns
+      // also collapse any open sub-dropdown
       document.querySelectorAll('.nav-dropdown.open').forEach(function (d) {
         d.classList.remove('open');
       });
     }
 
-    /* Burger button click */
     toggle.addEventListener('click', function (e) {
       e.stopPropagation();
       menu.classList.contains('open') ? closeMenu() : openMenu();
     });
 
-    /* Close when a non-dropdown nav link is tapped.
-       IMPORTANT: skip the Services parent .nav-link — that's handled by
-       initDropdowns() so we must NOT close the whole menu when it's tapped. */
+    /* Close on nav link click — BUT skip .nav-dropdown parent links on mobile.
+       Those need to stay open so the user can see and tap the sub-items.
+       initDropdowns() handles those separately. */
     menu.querySelectorAll('a').forEach(function (link) {
       if (link.classList.contains('nav-link') && link.closest('.nav-dropdown')) {
-        return; // skip dropdown parent links
+        return; // skip — handled by initDropdowns
       }
       link.addEventListener('click', closeMenu);
     });
@@ -69,7 +69,7 @@
       if (e.key === 'Escape') closeMenu();
     });
 
-    /* Reset on resize to desktop */
+    /* Reset when resizing back to desktop */
     window.addEventListener('resize', function () {
       if (window.innerWidth > 768) closeMenu();
     });
@@ -86,12 +86,12 @@
       if (!link) return;
 
       link.addEventListener('click', function (e) {
-        if (window.innerWidth <= 768) {       // matches CSS breakpoint exactly
+        if (window.innerWidth <= 768) {
           e.preventDefault();
           var isOpen = dropdown.classList.contains('open');
           // Close all dropdowns first
           dropdowns.forEach(function (d) { d.classList.remove('open'); });
-          // Toggle this one
+          // Toggle this one open/closed
           if (!isOpen) dropdown.classList.add('open');
         }
       });
@@ -106,11 +106,7 @@
     if (!navbar) return;
 
     var onScroll = function () {
-      if (window.scrollY > 20) {
-        navbar.classList.add('scrolled');    // matches .navbar.scrolled in CSS
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -128,7 +124,7 @@
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible'); // matches .reveal.is-visible in CSS
+            entry.target.classList.add('is-visible');
             observer.unobserve(entry.target);
           }
         });
@@ -141,7 +137,7 @@
   }
 
   /* ─────────────────────────────────────────
-   * 5. COUNTER ANIMATION (hero stats)
+   * 5. COUNTER ANIMATION
    * ───────────────────────────────────────── */
   function initCounters() {
     var counters = document.querySelectorAll('[data-count]');
@@ -159,7 +155,7 @@
         function tick(now) {
           var elapsed  = now - start;
           var progress = Math.min(elapsed / duration, 1);
-          progress = 1 - (1 - progress) * (1 - progress); // ease-out quad
+          progress     = 1 - (1 - progress) * (1 - progress);
           el.textContent = Math.round(progress * target) + suffix;
           if (progress < 1) requestAnimationFrame(tick);
         }
