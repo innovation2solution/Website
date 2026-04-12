@@ -85,90 +85,138 @@
           </div>
         </div>
 
-        <!-- RIGHT: Contact form -->
-        <div class="feature-visual reveal a-delay-1" style="background:var(--bg-light);border:1px solid var(--border);padding:2rem;border-radius:var(--radius-lg)">
+        <!-- RIGHT: Contact form panel — standalone card, no dependency on feature-visual -->
+        <div style="width:100%;background:var(--bg-light);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem 2.5rem;">
 
-          <h2 style="font-size:1.3rem;margin-bottom:1.5rem">Send us a message</h2>
-          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem">Fill in the form and we'll be in touch within one business day.</p>
+          <!-- Panel header: stacked text above the form -->
+          <div style="margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)">
+            <h2 style="font-size:1.25rem;font-weight:600;margin:0 0 0.5rem 0;color:var(--text)">Send us a message</h2>
+            <p style="font-size:0.9rem;color:var(--text-muted);margin:0">Fill in the form below and we'll be in touch within one business day.</p>
+          </div>
 
+          <!-- Form: all fields stacked, no float/flex conflicts -->
           <form
             id="contact-form"
             action="https://formspree.io/f/mlgodgzq"
             method="POST"
             novalidate
+            style="display:block;width:100%"
           >
-            <!-- Honeypot: Formspree silently discards submissions that fill this -->
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-            <!-- Custom subject line in inbox -->
+            <!-- Honeypot spam trap -->
+            <input type="text" name="_gotcha" style="display:none!important" tabindex="-1" autocomplete="off">
+            <!-- Custom inbox subject -->
             <input type="hidden" name="_subject" value="New enquiry via innovation2solution.com">
 
-            <!-- First / Last name -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <!-- First name / Last name -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.1rem">
               <div>
-                <label for="first-name" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">First Name <span style="color:var(--accent)">*</span></label>
-                <input type="text" id="first-name" name="first_name" required placeholder="Jane" autocomplete="given-name"
-                  style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+                <label for="first-name" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                  First Name <span style="color:var(--accent)">*</span>
+                </label>
+                <input
+                  type="text" id="first-name" name="first_name" required
+                  placeholder="Jane" autocomplete="given-name"
+                  style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s"
+                  onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+                >
               </div>
               <div>
-                <label for="last-name" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Last Name <span style="color:var(--accent)">*</span></label>
-                <input type="text" id="last-name" name="last_name" required placeholder="Smith" autocomplete="family-name"
-                  style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+                <label for="last-name" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                  Last Name <span style="color:var(--accent)">*</span>
+                </label>
+                <input
+                  type="text" id="last-name" name="last_name" required
+                  placeholder="Smith" autocomplete="family-name"
+                  style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s"
+                  onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+                >
               </div>
             </div>
 
             <!-- Work email -->
-            <div style="margin-bottom:1rem">
-              <label for="email" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Work Email <span style="color:var(--accent)">*</span></label>
-              <input type="email" id="email" name="email" required placeholder="jane@company.com" autocomplete="email"
-                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+            <div style="margin-bottom:1.1rem">
+              <label for="email" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                Work Email <span style="color:var(--accent)">*</span>
+              </label>
+              <input
+                type="email" id="email" name="email" required
+                placeholder="jane@company.com" autocomplete="email"
+                style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s"
+                onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+              >
             </div>
 
             <!-- Organisation -->
-            <div style="margin-bottom:1rem">
-              <label for="organisation" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Organisation</label>
-              <input type="text" id="organisation" name="organisation" placeholder="Your company or agency" autocomplete="organization"
-                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+            <div style="margin-bottom:1.1rem">
+              <label for="organisation" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                Organisation
+              </label>
+              <input
+                type="text" id="organisation" name="organisation"
+                placeholder="Your company or agency" autocomplete="organization"
+                style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s"
+                onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+              >
             </div>
 
-            <!-- Service area -->
-            <div style="margin-bottom:1rem">
-              <label for="service" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">What are you interested in?</label>
-              <select id="service" name="service_area"
-                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-                <option value="">Select a service area...</option>
-                <option>AI &amp; Automation</option>
-                <option>Digital Transformation</option>
-                <option>App &amp; Web Development</option>
-                <option>Data &amp; Analytics</option>
-                <option>IT Strategy &amp; Consultancy</option>
-                <option>Training &amp; Change Management</option>
-                <option>Not sure yet — need guidance</option>
-              </select>
-            </div>
-
-            <!-- Budget -->
-            <div style="margin-bottom:1rem">
-              <label for="budget" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Approximate budget (optional)</label>
-              <select id="budget" name="budget"
-                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-                <option value="">Prefer not to say</option>
-                <option>Under £25,000</option>
-                <option>£25,000 – £75,000</option>
-                <option>£75,000 – £250,000</option>
-                <option>£250,000+</option>
-              </select>
+            <!-- Service area / Budget side by side -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.1rem">
+              <div>
+                <label for="service" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                  What are you interested in?
+                </label>
+                <select
+                  id="service" name="service_area"
+                  style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none"
+                  onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+                >
+                  <option value="">Select a service area...</option>
+                  <option>AI &amp; Automation</option>
+                  <option>Digital Transformation</option>
+                  <option>App &amp; Web Development</option>
+                  <option>Data &amp; Analytics</option>
+                  <option>IT Strategy &amp; Consultancy</option>
+                  <option>Training &amp; Change Management</option>
+                  <option>Not sure yet — need guidance</option>
+                </select>
+              </div>
+              <div>
+                <label for="budget" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                  Approximate budget
+                </label>
+                <select
+                  id="budget" name="budget"
+                  style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none"
+                  onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+                >
+                  <option value="">Prefer not to say</option>
+                  <option>Under £25,000</option>
+                  <option>£25,000 – £75,000</option>
+                  <option>£75,000 – £250,000</option>
+                  <option>£250,000+</option>
+                </select>
+              </div>
             </div>
 
             <!-- Message -->
             <div style="margin-bottom:1.5rem">
-              <label for="message" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Tell us about your project or challenge <span style="color:var(--accent)">*</span></label>
-              <textarea id="message" name="message" required rows="5"
+              <label for="message" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.35rem;color:var(--text)">
+                Tell us about your project or challenge <span style="color:var(--accent)">*</span>
+              </label>
+              <textarea
+                id="message" name="message" required rows="5"
                 placeholder="Briefly describe what you're trying to achieve or the challenge you're facing..."
-                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text);resize:vertical"></textarea>
+                style="display:block;width:100%;box-sizing:border-box;padding:0.6rem 0.85rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;font-family:inherit;background:var(--bg);color:var(--text);outline:none;resize:vertical;transition:border-color .15s"
+                onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"
+              ></textarea>
             </div>
 
-            <!-- Submit -->
-            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem">
+            <!-- Submit button -->
+            <button
+              type="submit" id="submit-btn"
+              class="btn btn-primary"
+              style="display:block;width:100%;padding:0.85rem;text-align:center;font-size:1rem;cursor:pointer"
+            >
               Send Message
             </button>
 
@@ -176,14 +224,21 @@
               We'll reply within one business day. Your information is kept confidential.
             </p>
 
-            <!-- Success -->
-            <div id="form-success" style="display:none;background:var(--success-bg,#ecfdf5);border:1px solid var(--success-border,#6ee7b7);border-radius:var(--radius);padding:1rem;margin-top:1rem;color:var(--success-text,#065f46);font-size:0.9rem">
-              &#10003; Message sent! We'll be in touch within one business day.
+            <!-- Success confirmation -->
+            <div
+              id="form-success"
+              style="display:none;margin-top:1.25rem;padding:1rem 1.25rem;background:#ecfdf5;border:1px solid #6ee7b7;border-radius:var(--radius);color:#065f46;font-size:0.9rem;line-height:1.5"
+            >
+              &#10003; <strong>Message sent!</strong> We'll be in touch within one business day.
             </div>
 
-            <!-- Error -->
-            <div id="form-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:var(--radius);padding:1rem;margin-top:1rem;color:#991b1b;font-size:0.9rem">
-              Something went wrong. Please email us directly at <a href="mailto:enquiries@innovation2solution.com">enquiries@innovation2solution.com</a>
+            <!-- Error message -->
+            <div
+              id="form-error"
+              style="display:none;margin-top:1.25rem;padding:1rem 1.25rem;background:#fef2f2;border:1px solid #fca5a5;border-radius:var(--radius);color:#991b1b;font-size:0.9rem;line-height:1.5"
+            >
+              Something went wrong. Please email us directly at
+              <a href="mailto:enquiries@innovation2solution.com" style="color:#991b1b;text-decoration:underline">enquiries@innovation2solution.com</a>
             </div>
 
           </form>
