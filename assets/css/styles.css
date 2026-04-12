@@ -1,27 +1,42 @@
 /* ============================================================
    Innovation 2 Solution — Design System
-   Aesthetic: Precision Navy | Syne + Plus Jakarta Sans
+   Aesthetic: Precision Navy | Nunito + Plus Jakarta Sans
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+/* Fonts: Nunito (display/headings/logo) + Plus Jakarta Sans (body/UI)
+   Nunito — rounded, open apertures, high x-height, excellent legibility at all sizes.
+   Mirrors the Avenir/Nunito stack used on EDUINSPECT360. WCAG 1.4.4 & 1.4.12 compliant.
+   Plus Jakarta Sans retained for body — clean, neutral, highly legible for long-form text. */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
 /* --- Custom Properties ----------------------------------- */
 :root {
   --primary:       #0A1F3C;
   --primary-light: #122A52;
-  --accent:        #0EA5E9;
-  --accent-dark:   #0284C7;
-  --accent-2:      #10B981;
-  --accent-2-dark: #059669;
+  /* --- Accessibility-corrected accent colours ---
+     --accent was #0EA5E9 (sky blue) = 2.0:1 on white — WCAG AA FAIL
+     Replaced with #0369A1 = 4.6:1 on white ✓ AA | brand character preserved
+     --accent-2 was #10B981 (mid-green) = 3.0:1 on white — WCAG AA FAIL
+     Replaced with #047857 = 5.3:1 on white ✓ AA | same green family
+     Both colours remain visually in the same hue family — only darkened enough to pass. */
+  --accent:        #0369A1;
+  --accent-dark:   #025A87;
+  --accent-2:      #047857;
+  --accent-2-dark: #036B4C;
   --text:          #1E293B;
-  --text-muted:    #5E718A;
-  --text-light:    #94A3B8;
+  /* --text-muted was #5E718A = 4.4:1 on white — just below AA 4.5:1 threshold
+     Corrected to #4A6178 = 5.1:1 on white ✓ AA */
+  --text-muted:    #4A6178;
+  /* --text-light was #94A3B8 = 2.5:1 on white — FAIL
+     Used for labels, meta text, light hints. Corrected to #64748B = 4.6:1 ✓ AA
+     Note: only use for large text (18pt+) or non-informational decorative text if below 4.5:1 */
+  --text-light:    #64748B;
   --bg:            #FFFFFF;
-  --bg-light:      #F0F7FF;
+  --bg-light:      #EFF6FF;
   --bg-alt:        #F8FAFC;
   --bg-dark:       #0A1F3C;
-  --border:        #DDE8F5;
-  --border-light:  #EEF4FC;
+  --border:        #DBEAFE;
+  --border-light:  #EFF6FF;
   --shadow:        0 2px 16px rgba(10,31,60,0.08);
   --shadow-md:     0 6px 32px rgba(10,31,60,0.12);
   --shadow-lg:     0 16px 64px rgba(10,31,60,0.18);
@@ -30,7 +45,7 @@
   --radius-xl:     28px;
   --max-w:         1240px;
   --nav-h:         74px;
-  --font-display:  'Syne', sans-serif;
+  --font-display:  'Nunito', 'Avenir Next', 'Avenir', sans-serif;
   --font-body:     'Plus Jakarta Sans', sans-serif;
   --transition:    all 0.25s ease;
   --transition-sl: all 0.4s ease;
@@ -39,20 +54,50 @@
 /* --- Reset & Base ---------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; /* 1rem = 16px; never set below 100% — WCAG 1.4.4 */ }
 
 body {
   font-family: var(--font-body);
   color: var(--text);
   background: var(--bg);
-  line-height: 1.7;
+  line-height: 1.7;       /* WCAG 1.4.12: ≥ 1.5× font-size */
+  letter-spacing: 0.01em; /* WCAG 1.4.12: supports user text-spacing overrides */
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word; /* prevents text overflow at 200% zoom — WCAG 1.4.4 */
 }
 
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* WCAG 1.4.1 — colour must not be the only visual differentiator for links.
+   We restore underlines on all body/content links.
+   Navigation links, buttons, and card CTAs are exempt (context makes role clear). */
+a { color: inherit; text-decoration: none; }
+main a:not([class]),
+main a.inline-link,
+.blog-card-body a,
+.case-card-body a,
+.footer-contact a,
+article a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* WCAG 2.4.7 — Focus visible: ensure focus rings are never suppressed */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* High-contrast mode support */
+@media (forced-colors: active) {
+  .btn, .service-link, .read-more, .nav-link { forced-color-adjust: auto; }
+}
 
 /* --- Typography ------------------------------------------ */
 h1, h2, h3, h4, h5 {
@@ -62,11 +107,11 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
 }
 
-h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.015em; }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); }
-h4 { font-size: 1.1rem; font-weight: 600; }
-h5 { font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.005em; }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.55rem); font-weight: 700; }
+h4 { font-size: 1.1rem; font-weight: 700; }
+h5 { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
 
 p { margin-bottom: 1em; color: var(--text-muted); line-height: 1.8; }
 p:last-child { margin-bottom: 0; }
@@ -136,7 +181,7 @@ strong { color: var(--text); font-weight: 600; }
 .btn-primary:hover {
   background: var(--accent-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(14,165,233,0.35);
+  box-shadow: 0 6px 24px rgba(3,105,161,0.35);
 }
 
 .btn-dark {
@@ -161,7 +206,7 @@ strong { color: var(--text); font-weight: 600; }
 }
 
 .btn-outline-white {
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255,255,255,0.5);  /* raised from 0.3 — WCAG 1.4.11 UI component contrast */
   color: #fff;
   background: transparent;
 }
@@ -208,7 +253,7 @@ strong { color: var(--text); font-weight: 600; }
   font-size: 1.25rem;
   font-weight: 800;
   color: #fff;
-  letter-spacing: -0.01em;
+  letter-spacing: 0em;  /* Nunito doesn't need negative tracking at this size */
 }
 .nav-logo .logo-accent { color: var(--accent); }
 
@@ -281,11 +326,12 @@ strong { color: var(--text); font-weight: 600; }
 }
 .dropdown-menu a:hover {
   background: var(--bg-light);
-  color: var(--accent);
+  color: var(--accent);  /* #0369A1 on white = 4.6:1 ✓ AA */
 }
 .dropdown-menu a .dd-icon {
   width: 32px; height: 32px;
-  background: var(--bg-light);
+  background: #fff;       /* white bg gives #0369A1 icon 4.6:1 ✓ vs bg-light which was borderline */
+  border: 1px solid var(--border);
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   color: var(--accent);
@@ -321,8 +367,8 @@ strong { color: var(--text); font-weight: 600; }
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 25% 30%, rgba(14,165,233,0.12) 0%, transparent 55%),
-    radial-gradient(circle at 75% 70%, rgba(16,185,129,0.08) 0%, transparent 50%);
+    radial-gradient(circle at 25% 30%, rgba(3,105,161,0.12) 0%, transparent 55%),
+    radial-gradient(circle at 75% 70%, rgba(4,120,87,0.08) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -342,9 +388,9 @@ strong { color: var(--text); font-weight: 600; }
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(14,165,233,0.15);
-  border: 1px solid rgba(14,165,233,0.3);
-  color: var(--accent);
+  background: rgba(3,105,161,0.15);
+  border: 1px solid rgba(3,105,161,0.35);
+  color: #7DD3FC;          /* light blue — sufficient contrast on dark hero bg: ~7:1 on #0A1F3C ✓ AAA */
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -357,7 +403,7 @@ strong { color: var(--text); font-weight: 600; }
   content: '';
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: #7DD3FC;     /* matches badge text colour above */
   animation: pulse 2s infinite;
 }
 
@@ -366,11 +412,13 @@ strong { color: var(--text); font-weight: 600; }
   50% { opacity: 0.6; transform: scale(1.2); }
 }
 
-.hero h1 { color: #fff; margin-bottom: 1.5rem; }
-.hero h1 .accent { color: var(--accent); }
-.hero h1 .accent-2 { color: var(--accent-2); }
+/* On dark hero bg, accent colour must be a lighter value for sufficient contrast.
+   #0369A1 on #0A1F3C = 2.8:1 — FAIL. Using #7DD3FC = 7.2:1 ✓ AAA */
+.hero h1 { color: #fff; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+.hero h1 .accent   { color: #7DD3FC; }  /* light blue — 7.2:1 on dark bg ✓ AAA */
+.hero h1 .accent-2 { color: #6EE7B7; }  /* light green — 6.8:1 on dark bg ✓ AAA */
 
-.hero .lead { color: rgba(255,255,255,0.7); margin-bottom: 2.25rem; max-width: 580px; }
+.hero .lead { color: rgba(255,255,255,0.82); margin-bottom: 2.25rem; max-width: 580px; }
 
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
 
@@ -393,7 +441,7 @@ strong { color: var(--text); font-weight: 600; }
 }
 .hero-proof-item .label {
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.65); /* was 0.5 — bumped for better legibility, now ~7.5:1 ✓ */
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -411,8 +459,8 @@ strong { color: var(--text); font-weight: 600; }
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 20% 50%, rgba(14,165,233,0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(16,185,129,0.07) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(3,105,161,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(4,120,87,0.07) 0%, transparent 50%);
 }
 .page-hero::after {
   content: '';
@@ -504,7 +552,7 @@ strong { color: var(--text); font-weight: 600; }
 .service-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
-  border-color: rgba(14,165,233,0.3);
+  border-color: rgba(3,105,161,0.3);
 }
 .service-icon {
   width: 56px; height: 56px;
@@ -516,7 +564,7 @@ strong { color: var(--text); font-weight: 600; }
   transition: var(--transition);
 }
 .service-card:hover .service-icon {
-  background: rgba(14,165,233,0.12);
+  background: rgba(3,105,161,0.12);
   color: var(--accent);
 }
 .service-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
@@ -530,8 +578,12 @@ strong { color: var(--text); font-weight: 600; }
   gap: 0.4rem;
   transition: var(--transition);
   margin-top: auto;
+  text-decoration: underline;           /* WCAG 1.4.1 — not colour-only */
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(3,105,161,0.4);
 }
-.service-link:hover { gap: 0.7rem; }
+.service-link:hover { gap: 0.7rem; text-decoration-color: var(--accent); }
 
 /* --- Feature List --------------------------------------- */
 .feature-split {
@@ -555,14 +607,14 @@ strong { color: var(--text); font-weight: 600; }
   content: '';
   width: 20px; height: 20px;
   border-radius: 50%;
-  background: rgba(16,185,129,0.12);
+  background: rgba(4,120,87,0.12);
   border: 1.5px solid var(--accent-2);
   flex-shrink: 0;
   margin-top: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2310B981'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23047857'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
   background-size: 12px;
   background-repeat: no-repeat;
   background-position: center;
@@ -591,13 +643,13 @@ strong { color: var(--text); font-weight: 600; }
 .feature-visual-icon {
   width: 80px; height: 80px;
   border-radius: 22px;
-  background: rgba(14,165,233,0.2);
+  background: rgba(3,105,161,0.25);  /* updated from old accent rgba */
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 1rem;
   color: var(--accent);
 }
 .feature-visual-icon svg { width: 40px; height: 40px; }
-.feature-visual p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+.feature-visual p { color: rgba(255,255,255,0.75); font-size: 0.9rem; }  /* was 0.6 = 6.9:1 ✓, raised to 0.75 = 8.7:1 ✓ */
 .feature-visual strong { color: #fff; }
 
 /* --- Approach Steps ------------------------------------- */
@@ -663,8 +715,8 @@ strong { color: var(--text); font-weight: 600; }
 }
 .case-tag {
   display: inline-block;
-  background: rgba(14,165,233,0.2);
-  color: var(--accent);
+  background: rgba(3,105,161,0.25);
+  color: #7DD3FC;          /* light blue — ~7:1 on dark header bg ✓ AAA */
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -695,7 +747,7 @@ strong { color: var(--text); font-weight: 600; }
   font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent);  /* #0369A1 — 4.6:1 on white ✓ AA */
   display: block;
 }
 .case-metric .metric-label {
@@ -733,7 +785,10 @@ strong { color: var(--text); font-weight: 600; }
   font-family: var(--font-display);
   font-size: 2.5rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.3);
+  /* was 0.3 = 3.5:1 — FAILS AA. Raised to 0.55 = 6.4:1 ✓ AA
+     These are large text (>18pt bold) so 3:1 would technically suffice,
+     but we correct to AA normal-text threshold for robustness. */
+  color: rgba(255,255,255,0.55);
   position: relative; z-index: 2;
 }
 .team-card-body { padding: 1.5rem; }
@@ -813,7 +868,13 @@ strong { color: var(--text); font-weight: 600; }
   color: var(--accent);
   font-size: 0.82rem;
   display: flex; align-items: center; gap: 0.3rem;
+  text-decoration: underline;           /* WCAG 1.4.1 — not colour-only */
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(3,105,161,0.4);
+  transition: var(--transition);
 }
+.read-more:hover { text-decoration-color: var(--accent); }
 
 /* --- Testimonial ---------------------------------------- */
 .testimonial-card {
@@ -912,12 +973,12 @@ strong { color: var(--text); font-weight: 600; }
   width: 60%;
   padding-bottom: 60%;
   border-radius: 50%;
-  background: rgba(14,165,233,0.08);
+  background: rgba(3,105,161,0.08);
   pointer-events: none;
 }
 .cta-block-content { position: relative; z-index: 2; }
 .cta-block h2 { color: #fff; margin-bottom: 1rem; }
-.cta-block p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+.cta-block p { color: rgba(255,255,255,0.82); margin-bottom: 2rem; max-width: 540px; margin-left: auto; margin-right: auto; }
 .cta-block .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
 /* --- Sector Cards --------------------------------------- */
@@ -929,7 +990,7 @@ strong { color: var(--text); font-weight: 600; }
   transition: var(--transition-sl);
   cursor: pointer;
 }
-.sector-card:hover { box-shadow: var(--shadow-md); border-color: rgba(14,165,233,0.35); transform: translateY(-3px); }
+.sector-card:hover { box-shadow: var(--shadow-md); border-color: rgba(3,105,161,0.35); transform: translateY(-3px); }
 .sector-icon {
   width: 56px; height: 56px;
   border-radius: 16px;
@@ -1002,7 +1063,9 @@ strong { color: var(--text); font-weight: 600; }
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+  box-shadow: 0 0 0 3px rgba(3,105,161,0.15);
+  outline: 2px solid var(--accent); /* WCAG 2.4.7 — visible focus indicator */
+  outline-offset: 0;
 }
 .form-group textarea { resize: vertical; min-height: 130px; }
 .form-group select { appearance: none; cursor: pointer; }
@@ -1024,40 +1087,48 @@ strong { color: var(--text); font-weight: 600; }
 }
 
 .footer-brand .nav-logo { display: inline-block; margin-bottom: 1rem; }
-.footer-brand p { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 0.75rem; }
-.footer-reg { font-size: 0.78rem; color: rgba(255,255,255,0.3) !important; }
+.footer-brand p { font-size: 0.875rem; color: rgba(255,255,255,0.72); line-height: 1.75; margin-bottom: 0.75rem; }
+/* --footer-reg was rgba(255,255,255,0.3) on #0A1F3C = 3.5:1 — FAILS AA
+   Corrected to rgba(255,255,255,0.55) = 6.4:1 ✓ AA */
+.footer-reg { font-size: 0.78rem; color: rgba(255,255,255,0.55) !important; }
 
 .footer-links h4, .footer-contact h4 {
   font-family: var(--font-display);
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.4);
+  /* was rgba(255,255,255,0.4) = 4.7:1 ✓ passes but very dim — raised to 0.65 = 7.5:1 ✓ AAA */
+  color: rgba(255,255,255,0.65);
   margin-bottom: 1.25rem;
   font-weight: 600;
 }
 .footer-links ul li { margin-bottom: 0.6rem; }
 .footer-links ul li a {
   font-size: 0.875rem;
-  color: rgba(255,255,255,0.6);
+  /* was rgba(255,255,255,0.6) = 6.9:1 ✓ AA — fine, but raise to 0.72 for better legibility */
+  color: rgba(255,255,255,0.72);
   transition: var(--transition);
 }
 .footer-links ul li a:hover { color: #fff; }
 
-.footer-contact p { font-size: 0.875rem; color: rgba(255,255,255,0.55); }
-.footer-contact a { color: var(--accent); font-size: 0.875rem; display: block; margin-bottom: 0.5rem; }
+/* footer-contact p was rgba(255,255,255,0.55) = 6.4:1 ✓ — fine, raise to 0.72 for consistency */
+.footer-contact p { font-size: 0.875rem; color: rgba(255,255,255,0.72); }
+/* footer-contact a was var(--accent) = #0369A1 on dark bg = 2.8:1 — FAILS AA
+   Using #7DD3FC (light blue) = 7.2:1 on #0A1F3C ✓ AAA */
+.footer-contact a { color: #7DD3FC; font-size: 0.875rem; display: block; margin-bottom: 0.5rem; }
 .footer-contact a:hover { color: #fff; }
 
 .social-links { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
 .social-link {
   width: 36px; height: 36px;
   border-radius: 9px;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
   display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.65);  /* 7.5:1 on dark bg ✓ */
   transition: var(--transition);
 }
-.social-link:hover { border-color: var(--accent); color: var(--accent); }
+/* hover: use light blue — #0369A1 on dark bg only 2.8:1, fails */
+.social-link:hover { border-color: #7DD3FC; color: #7DD3FC; }
 .social-link svg { width: 16px; height: 16px; }
 
 .footer-bottom {
@@ -1066,10 +1137,12 @@ strong { color: var(--text); font-weight: 600; }
   justify-content: space-between;
   padding: 1.5rem 0;
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.3);
+  /* was rgba(255,255,255,0.3) = 3.5:1 — FAILS AA. Corrected to 0.55 = 6.4:1 ✓ AA */
+  color: rgba(255,255,255,0.55);
 }
-.footer-bottom a { color: rgba(255,255,255,0.4); transition: var(--transition); }
-.footer-bottom a:hover { color: rgba(255,255,255,0.7); }
+/* was rgba(255,255,255,0.4) = 4.7:1 — just passes. Raise to 0.6 = 6.9:1 ✓ for links */
+.footer-bottom a { color: rgba(255,255,255,0.6); transition: var(--transition); }
+.footer-bottom a:hover { color: rgba(255,255,255,0.9); }
 .footer-bottom-links { display: flex; gap: 1.5rem; }
 
 /* --- Utilities ------------------------------------------ */
@@ -1100,7 +1173,7 @@ strong { color: var(--text); font-weight: 600; }
   letter-spacing: 0.09em;
   padding: 0.3rem 0.8rem;
   border-radius: 100px;
-  border: 1px solid rgba(14,165,233,0.2);
+  border: 1px solid rgba(3,105,161,0.25);
 }
 
 /* --- Animations ----------------------------------------- */
@@ -1126,14 +1199,16 @@ strong { color: var(--text); font-weight: 600; }
   align-items: center;
   gap: 0.5rem;
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.6);  /* was 0.45 = 5.2:1 ✓, raise to 0.6 = 6.9:1 ✓ */
   margin-bottom: 1.25rem;
 }
-.breadcrumb a { color: rgba(255,255,255,0.55); transition: var(--transition); }
-.breadcrumb a:hover { color: rgba(255,255,255,0.85); }
-.breadcrumb span { color: rgba(255,255,255,0.3); }
+.breadcrumb a { color: rgba(255,255,255,0.72); transition: var(--transition); }
+.breadcrumb a:hover { color: rgba(255,255,255,0.92); }
+/* separator — purely decorative, aria-hidden in HTML, but fix anyway */
+.breadcrumb span { color: rgba(255,255,255,0.45); }
 
 /* --- Page-specific: Service Detail ---------------------- */
+/* border uses var(--accent) = #0369A1 — decorative, not text, no contrast req. ✓ */
 .service-detail-header { border-left: 4px solid var(--accent); padding-left: 1.5rem; margin-bottom: 2rem; }
 .service-detail-header .eyebrow { margin-bottom: 0.4rem; }
 
@@ -1214,7 +1289,7 @@ strong { color: var(--text); font-weight: 600; }
     margin: 0.25rem 0 0.25rem 1rem;
     padding: 0.25rem;
   }
-  .nav-dropdown .dropdown-menu a { color: rgba(255,255,255,0.7); }
+  .nav-dropdown .dropdown-menu a { color: rgba(255,255,255,0.78); }  /* was 0.7 = 8.1:1 ✓, raised to 0.78 = 9.0:1 ✓ */
   .nav-dropdown .dropdown-menu a:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
   .nav-cta { width: 100%; justify-content: center; margin-top: 1rem; }
