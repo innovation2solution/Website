@@ -881,6 +881,11 @@ strong { color: var(--text); font-weight: 600; }
   color: inherit;
 }
 
+a.blog-card {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* --- Testimonial ---------------------------------------- */
 .testimonial-card {
   background: var(--bg);
