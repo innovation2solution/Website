@@ -876,6 +876,10 @@ strong { color: var(--text); font-weight: 600; }
 }
 .read-more:hover { text-decoration-color: var(--accent); }
 
+a.blog-card * {
+  text-decoration: none;
+}
+
 /* --- Testimonial ---------------------------------------- */
 .testimonial-card {
   background: var(--bg);
