@@ -1,128 +1,207 @@
-/* ============================================================
-   Innovation 2 Solution — Main JS
-   ============================================================ */
+/**
+ * Innovation 2 Solution — main.js
+ * Fixed: burger menu toggle, scroll behaviour, dropdown, reveal animations
+ * Place this file at the ROOT of the GitHub Pages repo (same level as index.html)
+ * All HTML pages must reference it as: <script src="/main.js"></script>
+ * (or as a relative path: <script src="main.js"></script> on root-level pages)
+ */
 
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
+  'use strict';
 
-  /* --- Sticky Nav ---------------------------------------- */
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    const onScroll = () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+  /* ─────────────────────────────────────────
+   * 1. BURGER / MOBILE NAV TOGGLE
+   * ───────────────────────────────────────── */
+  function initMobileNav() {
+    var toggle  = document.getElementById('navToggle');
+    var menu    = document.getElementById('navMenu');
+    var navbar  = document.getElementById('navbar');
+
+    if (!toggle || !menu) return; // guard — elements must exist
+
+    /* Open / close */
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = menu.classList.contains('is-open');
+
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    /* Close when a nav link is tapped (SPA-friendly) */
+    menu.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        closeMenu();
+      });
+    });
+
+    /* Close on outside click */
+    document.addEventListener('click', function (e) {
+      if (navbar && !navbar.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    /* Close on Escape */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    function openMenu() {
+      menu.classList.add('is-open');
+      toggle.classList.add('is-active');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden'; // prevent scroll behind overlay
+    }
+
+    function closeMenu() {
+      menu.classList.remove('is-open');
+      toggle.classList.remove('is-active');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      // Also close any open dropdowns
+      document.querySelectorAll('.nav-dropdown.is-open').forEach(function (d) {
+        d.classList.remove('is-open');
+      });
+    }
   }
 
-  /* --- Mobile Nav Toggle --------------------------------- */
-  const toggle = document.getElementById('navToggle');
-  const menu   = document.getElementById('navMenu');
-  if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      const isOpen = menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', isOpen);
-      toggle.classList.toggle('is-active', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-    // Close on link click
-    menu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        menu.classList.remove('open');
-        toggle.classList.remove('is-active');
-        document.body.style.overflow = '';
+  /* ─────────────────────────────────────────
+   * 2. MOBILE DROPDOWN (Services sub-menu)
+   * ───────────────────────────────────────── */
+  function initDropdowns() {
+    var dropdowns = document.querySelectorAll('.nav-dropdown');
+
+    dropdowns.forEach(function (dropdown) {
+      var link = dropdown.querySelector('.nav-link');
+      if (!link) return;
+
+      /* On mobile, tap the parent link to toggle sub-menu instead of navigating */
+      link.addEventListener('click', function (e) {
+        if (window.innerWidth <= 900) {           // match your CSS breakpoint
+          e.preventDefault();
+          var isOpen = dropdown.classList.contains('is-open');
+          // Close siblings
+          dropdowns.forEach(function (d) { d.classList.remove('is-open'); });
+          if (!isOpen) dropdown.classList.add('is-open');
+        }
       });
     });
   }
 
-  /* --- Active nav link ----------------------------------- */
-  const path = window.location.pathname.replace(/\/$/, '');
-  document.querySelectorAll('.nav-link').forEach(link => {
-    const href = link.getAttribute('href').replace(/\/$/, '');
-    if (href === path || (href !== '/' && path.startsWith(href))) {
-      link.classList.add('active');
-    }
-  });
+  /* ─────────────────────────────────────────
+   * 3. STICKY NAVBAR — add shadow on scroll
+   * ───────────────────────────────────────── */
+  function initStickyNav() {
+    var navbar = document.getElementById('navbar');
+    if (!navbar) return;
 
-  /* --- Stats Counter ------------------------------------- */
-  const counters = document.querySelectorAll('[data-count]');
-  if (counters.length) {
-    const animateCount = (el) => {
-      const target   = parseFloat(el.dataset.count);
-      const suffix   = el.dataset.suffix || '';
-      const prefix   = el.dataset.prefix || '';
-      const decimals = el.dataset.decimals || 0;
-      const duration = 1800;
-      const start    = performance.now();
-
-      const step = (now) => {
-        const elapsed  = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased    = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-        const value    = eased * target;
-        el.textContent = prefix + (decimals > 0 ? value.toFixed(decimals) : Math.floor(value)) + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
+    var onScroll = function () {
+      if (window.scrollY > 20) {
+        navbar.classList.add('is-scrolled');
+      } else {
+        navbar.classList.remove('is-scrolled');
+      }
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !e.target.dataset.counted) {
-          e.target.dataset.counted = 'true';
-          animateCount(e.target);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load
+  }
+
+  /* ─────────────────────────────────────────
+   * 4. SCROLL-REVEAL ANIMATIONS
+   * ───────────────────────────────────────── */
+  function initReveal() {
+    var targets = document.querySelectorAll('.reveal');
+    if (!targets.length) return;
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      targets.forEach(function (el) { observer.observe(el); });
+    } else {
+      // Fallback for older browsers — just show everything
+      targets.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+  }
+
+  /* ─────────────────────────────────────────
+   * 5. COUNTER ANIMATION (hero stats)
+   * ───────────────────────────────────────── */
+  function initCounters() {
+    var counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el     = entry.target;
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        var duration = 1600;
+        var start  = performance.now();
+
+        function tick(now) {
+          var elapsed = now - start;
+          var progress = Math.min(elapsed / duration, 1);
+          // ease-out quad
+          progress = 1 - (1 - progress) * (1 - progress);
+          el.textContent = Math.round(progress * target) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
         }
+
+        requestAnimationFrame(tick);
+        observer.unobserve(el);
       });
     }, { threshold: 0.5 });
 
-    counters.forEach(c => observer.observe(c));
+    counters.forEach(function (el) { observer.observe(el); });
   }
 
-  /* --- Scroll Reveal ------------------------------------- */
-  const reveals = document.querySelectorAll('.reveal');
-  if (reveals.length) {
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObs.unobserve(e.target);
+  /* ─────────────────────────────────────────
+   * 6. FOOTER YEAR
+   * ───────────────────────────────────────── */
+  function initFooterYear() {
+    var el = document.getElementById('i2s-yr');
+    if (el) el.textContent = new Date().getFullYear();
+  }
+
+  /* ─────────────────────────────────────────
+   * 7. SMOOTH ANCHOR SCROLL
+   * ───────────────────────────────────────── */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(r => revealObs.observe(r));
-  }
-
-  /* --- Contact Form -------------------------------------- */
-  const form = document.getElementById('contactForm');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
-      const original = btn.textContent;
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-      // Simulated send — replace with actual endpoint
-      setTimeout(() => {
-        btn.textContent = '✓ Message Sent!';
-        btn.style.background = 'var(--accent-2)';
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.disabled = false;
-          btn.style.background = '';
-          form.reset();
-        }, 3500);
-      }, 1200);
     });
   }
 
-  /* --- Hamburger animation ------------------------------- */
-  document.querySelectorAll('.nav-toggle').forEach(t => {
-    const style = document.createElement('style');
-    style.textContent = `
-      .nav-toggle.is-active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-      .nav-toggle.is-active span:nth-child(2){opacity:0;transform:scaleX(0)}
-      .nav-toggle.is-active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    `;
-    document.head.appendChild(style);
+  /* ─────────────────────────────────────────
+   * INIT — run everything on DOMContentLoaded
+   * ───────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', function () {
+    initMobileNav();
+    initDropdowns();
+    initStickyNav();
+    initReveal();
+    initCounters();
+    initFooterYear();
+    initSmoothScroll();
   });
 
-});
+})();
