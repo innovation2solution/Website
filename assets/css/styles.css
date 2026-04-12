@@ -876,8 +876,9 @@ strong { color: var(--text); font-weight: 600; }
 }
 .read-more:hover { text-decoration-color: var(--accent); }
 
-a.blog-card * {
+.blog-card a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* --- Testimonial ---------------------------------------- */
