@@ -9,7 +9,6 @@
 <meta property="og:title" content="Contact Innovation 2 Solution — Book a Free Discovery Call"/>
 <meta property="og:type" content="website"/>
 <meta property="og:image" content="https://www.innovation2solution.com/assets/images/og-home.png"/>
-<!-- FIX 1: CSS path corrected -->
 <link rel="stylesheet" href="/assets/css/styles.css"/>
 </head>
 <body>
@@ -43,145 +42,157 @@
 </nav>
 
 <main>
-  <section class="page-hero"><div class="container"><div class="page-hero-content">
-    <nav aria-label="Breadcrumb" class="breadcrumb"><a href="/">Home</a><span>/</span><span>Contact</span></nav>
-    <span class="eyebrow" style="color:var(--accent)">Get In Touch</span>
-    <h1>Let's talk about your digital challenges</h1>
-    <p class="lead">Whether you have a specific project in mind or just want to explore the possibilities, our free 30-minute discovery call is the best place to start. No commitment, no hard sell — just an expert conversation.</p>
-  </div></div></section>
 
-  <section class="section"><div class="container">
-    <div class="feature-split">
-
-      <!-- LEFT: Contact info -->
-      <div class="feature-text reveal">
-        <h2>How can we help?</h2>
-
-        <div style="margin-bottom:2rem">
-          <h3 style="font-size:1rem;margin-bottom:0.5rem">Free Discovery Call</h3>
-          <p>30 minutes with a senior consultant to discuss your needs and explore the options. Available Mon–Fri, 9am–5pm GMT.</p>
-        </div>
-
-        <div style="margin-bottom:2rem">
-          <h3 style="font-size:1rem;margin-bottom:0.5rem">Email Us</h3>
-          <p><a href="mailto:enquiries@innovation2solution.com">enquiries@innovation2solution.com</a><br>
-          We respond to all enquiries within one business day.</p>
-        </div>
-
-        <div style="margin-bottom:2rem">
-          <h3 style="font-size:1rem;margin-bottom:0.5rem">Our Office</h3>
-          <p>2 Wheeleys Road, Edgbaston<br>Birmingham, B15 2LD<br>United Kingdom</p>
-        </div>
-
-        <div class="pain-card" style="margin-top:2rem">
-          <h3 style="font-size:1rem;margin-bottom:1rem">What happens after you get in touch?</h3>
-          <ol style="padding-left:1.25rem;line-height:2">
-            <li>We'll reply within one business day to arrange a call.</li>
-            <li>A senior consultant joins — no sales team, no junior staff.</li>
-            <li>We'll follow up with relevant thinking, case studies, or a proposal outline.</li>
-            <li>No pressure. You decide if and when to move forward.</li>
-          </ol>
-        </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <nav aria-label="Breadcrumb" class="breadcrumb"><a href="/">Home</a><span>/</span><span>Contact</span></nav>
+        <span class="eyebrow" style="color:var(--accent)">Get In Touch</span>
+        <h1>Let's talk about your digital challenges</h1>
+        <p class="lead">Whether you have a specific project in mind or just want to explore the possibilities, our free 30-minute discovery call is the best place to start. No commitment, no hard sell — just an expert conversation.</p>
       </div>
-
-      <!-- RIGHT: Contact form -->
-      <!-- FIX: Form wired to Formspree — replace YOUR_FORM_ID with your Formspree endpoint ID -->
-      <!-- Sign up free at https://formspree.io — takes 2 minutes -->
-      <div class="feature-visual reveal a-delay-1" style="background:var(--bg-light);border:1px solid var(--border);padding:2rem;border-radius:var(--radius-lg)">
-        <h2 style="font-size:1.3rem;margin-bottom:1.5rem">Send us a message</h2>
-        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem">Fill in the form and we'll be in touch within one business day.</p>
-
-        <!--
-          IMPORTANT: Replace "YOUR_FORM_ID" below with your actual Formspree form ID.
-          1. Go to https://formspree.io/register (free account)
-          2. Create a new form, add your email: enquiries@innovation2solution.com
-          3. Copy the form ID (looks like: xyzabcde)
-          4. Replace YOUR_FORM_ID with it below
-          Full URL becomes: https://formspree.io/f/YOUR_FORM_ID
-        -->
-        <form
-          id="contact-form"
-          action="https://formspree.io/f/YOUR_FORM_ID"
-          method="POST"
-          novalidate
-        >
-          <!-- Formspree honeypot spam prevention -->
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-          <!-- Redirect after success -->
-          <input type="hidden" name="_next" value="https://www.innovation2solution.com/contact.html?sent=true">
-          <input type="hidden" name="_subject" value="New enquiry via Innovation2Solution.com">
-
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
-            <div>
-              <label for="first-name" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">First Name <span style="color:var(--accent)">*</span></label>
-              <input type="text" id="first-name" name="first_name" required placeholder="Jane" style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-            </div>
-            <div>
-              <label for="last-name" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Last Name <span style="color:var(--accent)">*</span></label>
-              <input type="text" id="last-name" name="last_name" required placeholder="Smith" style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-            </div>
-          </div>
-
-          <div style="margin-bottom:1rem">
-            <label for="email" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Work Email <span style="color:var(--accent)">*</span></label>
-            <input type="email" id="email" name="email" required placeholder="jane@company.com" style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-          </div>
-
-          <div style="margin-bottom:1rem">
-            <label for="organisation" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Organisation</label>
-            <input type="text" id="organisation" name="organisation" placeholder="Your company or agency" style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-          </div>
-
-          <div style="margin-bottom:1rem">
-            <label for="service" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">What are you interested in?</label>
-            <select id="service" name="service_area" style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-              <option value="">Select a service area...</option>
-              <option>AI &amp; Automation</option>
-              <option>Digital Transformation</option>
-              <option>App &amp; Web Development</option>
-              <option>Data &amp; Analytics</option>
-              <option>IT Strategy &amp; Consultancy</option>
-              <option>Training &amp; Change Management</option>
-              <option>Not sure yet — need guidance</option>
-            </select>
-          </div>
-
-          <div style="margin-bottom:1rem">
-            <label for="budget" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Approximate budget (optional)</label>
-            <select id="budget" name="budget" style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
-              <option value="">Prefer not to say</option>
-              <option>Under £25,000</option>
-              <option>£25,000 – £75,000</option>
-              <option>£75,000 – £250,000</option>
-              <option>£250,000+</option>
-            </select>
-          </div>
-
-          <div style="margin-bottom:1.5rem">
-            <label for="message" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Tell us about your project or challenge <span style="color:var(--accent)">*</span></label>
-            <textarea id="message" name="message" required rows="5" placeholder="Briefly describe what you're trying to achieve or the challenge you're facing..." style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text);resize:vertical"></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem">
-            Send Message
-          </button>
-
-          <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;text-align:center">
-            We'll reply within one business day. Your information is kept confidential.
-          </p>
-
-          <!-- Success / error messages (shown via JS below) -->
-          <div id="form-success" style="display:none;background:var(--success-bg,#ecfdf5);border:1px solid var(--success-border,#6ee7b7);border-radius:var(--radius);padding:1rem;margin-top:1rem;color:var(--success-text,#065f46);font-size:0.9rem">
-            ✓ Message sent! We'll be in touch within one business day.
-          </div>
-          <div id="form-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:var(--radius);padding:1rem;margin-top:1rem;color:#991b1b;font-size:0.9rem">
-            Something went wrong. Please email us directly at <a href="mailto:enquiries@innovation2solution.com">enquiries@innovation2solution.com</a>
-          </div>
-        </form>
-      </div>
-
     </div>
-  </div></section>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="feature-split">
+
+        <!-- LEFT: Contact info — unchanged -->
+        <div class="feature-text reveal">
+          <h2>How can we help?</h2>
+          <div style="margin-bottom:2rem">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem">Free Discovery Call</h3>
+            <p>30 minutes with a senior consultant to discuss your needs and explore the options. Available Mon–Fri, 9am–5pm GMT.</p>
+          </div>
+          <div style="margin-bottom:2rem">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem">Email Us</h3>
+            <p><a href="mailto:enquiries@innovation2solution.com">enquiries@innovation2solution.com</a><br>
+            We respond to all enquiries within one business day.</p>
+          </div>
+          <div style="margin-bottom:2rem">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem">Our Office</h3>
+            <p>2 Wheeleys Road, Edgbaston<br>Birmingham, B15 2LD<br>United Kingdom</p>
+          </div>
+          <div class="pain-card" style="margin-top:2rem">
+            <h3 style="font-size:1rem;margin-bottom:1rem">What happens after you get in touch?</h3>
+            <ol style="padding-left:1.25rem;line-height:2">
+              <li>We'll reply within one business day to arrange a call.</li>
+              <li>A senior consultant joins — no sales team, no junior staff.</li>
+              <li>We'll follow up with relevant thinking, case studies, or a proposal outline.</li>
+              <li>No pressure. You decide if and when to move forward.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- RIGHT: Contact form -->
+        <div class="feature-visual reveal a-delay-1" style="background:var(--bg-light);border:1px solid var(--border);padding:2rem;border-radius:var(--radius-lg)">
+
+          <h2 style="font-size:1.3rem;margin-bottom:1.5rem">Send us a message</h2>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem">Fill in the form and we'll be in touch within one business day.</p>
+
+          <form
+            id="contact-form"
+            action="https://formspree.io/f/mlgodgzq"
+            method="POST"
+            novalidate
+          >
+            <!-- Honeypot: Formspree silently discards submissions that fill this -->
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+            <!-- Custom subject line in inbox -->
+            <input type="hidden" name="_subject" value="New enquiry via innovation2solution.com">
+
+            <!-- First / Last name -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+              <div>
+                <label for="first-name" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">First Name <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="first-name" name="first_name" required placeholder="Jane" autocomplete="given-name"
+                  style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+              </div>
+              <div>
+                <label for="last-name" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Last Name <span style="color:var(--accent)">*</span></label>
+                <input type="text" id="last-name" name="last_name" required placeholder="Smith" autocomplete="family-name"
+                  style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+              </div>
+            </div>
+
+            <!-- Work email -->
+            <div style="margin-bottom:1rem">
+              <label for="email" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Work Email <span style="color:var(--accent)">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="jane@company.com" autocomplete="email"
+                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+            </div>
+
+            <!-- Organisation -->
+            <div style="margin-bottom:1rem">
+              <label for="organisation" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Organisation</label>
+              <input type="text" id="organisation" name="organisation" placeholder="Your company or agency" autocomplete="organization"
+                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+            </div>
+
+            <!-- Service area -->
+            <div style="margin-bottom:1rem">
+              <label for="service" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">What are you interested in?</label>
+              <select id="service" name="service_area"
+                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+                <option value="">Select a service area...</option>
+                <option>AI &amp; Automation</option>
+                <option>Digital Transformation</option>
+                <option>App &amp; Web Development</option>
+                <option>Data &amp; Analytics</option>
+                <option>IT Strategy &amp; Consultancy</option>
+                <option>Training &amp; Change Management</option>
+                <option>Not sure yet — need guidance</option>
+              </select>
+            </div>
+
+            <!-- Budget -->
+            <div style="margin-bottom:1rem">
+              <label for="budget" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Approximate budget (optional)</label>
+              <select id="budget" name="budget"
+                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text)">
+                <option value="">Prefer not to say</option>
+                <option>Under £25,000</option>
+                <option>£25,000 – £75,000</option>
+                <option>£75,000 – £250,000</option>
+                <option>£250,000+</option>
+              </select>
+            </div>
+
+            <!-- Message -->
+            <div style="margin-bottom:1.5rem">
+              <label for="message" style="display:block;font-size:0.85rem;margin-bottom:0.4rem;font-weight:500">Tell us about your project or challenge <span style="color:var(--accent)">*</span></label>
+              <textarea id="message" name="message" required rows="5"
+                placeholder="Briefly describe what you're trying to achieve or the challenge you're facing..."
+                style="width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.9rem;background:var(--bg);color:var(--text);resize:vertical"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%;justify-content:center;padding:0.85rem">
+              Send Message
+            </button>
+
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem;text-align:center">
+              We'll reply within one business day. Your information is kept confidential.
+            </p>
+
+            <!-- Success -->
+            <div id="form-success" style="display:none;background:var(--success-bg,#ecfdf5);border:1px solid var(--success-border,#6ee7b7);border-radius:var(--radius);padding:1rem;margin-top:1rem;color:var(--success-text,#065f46);font-size:0.9rem">
+              &#10003; Message sent! We'll be in touch within one business day.
+            </div>
+
+            <!-- Error -->
+            <div id="form-error" style="display:none;background:#fef2f2;border:1px solid #fca5a5;border-radius:var(--radius);padding:1rem;margin-top:1rem;color:#991b1b;font-size:0.9rem">
+              Something went wrong. Please email us directly at <a href="mailto:enquiries@innovation2solution.com">enquiries@innovation2solution.com</a>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="footer" role="contentinfo">
@@ -231,51 +242,49 @@
 </footer>
 
 <script src="/assets/js/main.js"></script>
+
 <script>
   document.getElementById('i2s-yr').textContent = new Date().getFullYear();
 
-  // Show success message if redirected back after Formspree submission
-  if (window.location.search.includes('sent=true')) {
-    const s = document.getElementById('form-success');
-    if (s) { s.style.display = 'block'; }
-    // Optionally scroll to form
-    s.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
+  (function () {
+    var form    = document.getElementById('contact-form');
+    var btn     = document.getElementById('submit-btn');
+    var success = document.getElementById('form-success');
+    var error   = document.getElementById('form-error');
 
-  // Inline AJAX submission (optional enhancement — keeps user on page)
-  const form = document.getElementById('contact-form');
-  if (form) {
-    form.addEventListener('submit', async function(e) {
-      // Only intercept if Formspree ID has been set (not the placeholder)
-      const action = form.getAttribute('action');
-      if (action.includes('YOUR_FORM_ID')) return; // fall through to normal POST if not configured
-
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
+
+      btn.textContent = 'Sending\u2026';
+      btn.disabled    = true;
+      success.style.display = 'none';
+      error.style.display   = 'none';
 
       try {
-        const res = await fetch(action, {
-          method: 'POST',
-          body: new FormData(form),
+        var res = await fetch(form.action, {
+          method:  'POST',
+          body:    new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
+
         if (res.ok) {
-          document.getElementById('form-success').style.display = 'block';
           form.reset();
-          document.getElementById('form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
-          document.getElementById('form-error').style.display = 'block';
+          error.style.display = 'block';
+          error.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-      } catch {
-        document.getElementById('form-error').style.display = 'block';
+      } catch (_) {
+        error.style.display = 'block';
+        error.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } finally {
         btn.textContent = 'Send Message';
-        btn.disabled = false;
+        btn.disabled    = false;
       }
     });
-  }
+  })();
 </script>
+
 </body>
 </html>
