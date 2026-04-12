@@ -890,6 +890,47 @@ a.blog-card * {
   text-decoration: none;
 }
 
+/* Article layout: stack on mobile */
+.article-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 2rem 1rem;
+}
+
+.article-sidebar {
+  position: static;
+  width: 100%;
+}
+
+/* Restore two-column layout on larger screens */
+@media (min-width: 900px) {
+  .article-layout {
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    padding: 4rem 1.5rem;
+  }
+
+  .article-sidebar {
+    position: sticky;
+    top: 5rem;
+  }
+}
+
+/* Prevent stat grid and tables overflowing on small screens */
+@media (max-width: 600px) {
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .article-hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .roadmap {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* --- Testimonial ---------------------------------------- */
 .testimonial-card {
   background: var(--bg);
