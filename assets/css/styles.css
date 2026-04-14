@@ -747,3 +747,21 @@ strong { color: var(--text); font-weight: 600; }
   .hero-proof { flex-wrap: wrap; }
   .cert-grid  { gap: 0.75rem; }
 }
+
+ /* ── AI insights page button css fix ── */
+/* Target buttons specifically within the CTA/Insights section */
+.insights-cta .btn-primary,
+.insights-cta .btn-primary:hover,
+.insights-cta .btn-primary:active,
+.insights-cta .btn-primary:focus {
+    color: #ffffff !important;      /* Forces white text */
+    text-decoration: none !important; /* Removes that blue underline */
+    background-color: #004a99;      /* Keeps a solid background */
+    border-color: #004a99;
+}
+
+/* Optional: Add a slight highlight on hover so the user knows it's clickable */
+.insights-cta .btn-primary:hover {
+    background-color: #0056b3 !important; 
+    filter: brightness(1.1);
+}
