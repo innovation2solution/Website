@@ -59,7 +59,6 @@
 </script>
   <link rel="stylesheet" href="/assets/css/styles.css"/>
 <link rel="stylesheet" href="/assets/css/cookie-consent.css"/>
-
   <style>
     /* ─── Article-specific layout ─── */
     .article-layout {
@@ -900,37 +899,6 @@
       line-height: 1.4;
     }
 
-    /* Breadcrumb */
-    .article-breadcrumb {
-      padding: 1rem 0;
-      background: var(--bg-alt);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .breadcrumb-list {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .breadcrumb-list a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .breadcrumb-list a:hover {
-      text-decoration: underline;
-    }
-
-    .breadcrumb-sep {
-      color: var(--border);
-    }
-
     /* Governance triple */
     .governance-triple {
       display: grid;
@@ -1077,6 +1045,13 @@
   <section class="article-hero" aria-label="Article header">
     <div class="container">
       <div class="article-hero-content">
+        <nav aria-label="Breadcrumb" class="breadcrumb" style="color:#64748b;margin-bottom:1rem">
+          <a href="/" style="color:#64748b">Home</a>
+          <span style="margin:0 0.5rem;color:#475569">/</span>
+          <a href="/insights.html" style="color:#64748b">Insights</a>
+          <span style="margin:0 0.5rem;color:#475569">/</span>
+          <span style="color:#94a3b8">Digital Transformation</span>
+        </nav>
         <div class="article-category-badge">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="5"/></svg>
           Digital Transformation
