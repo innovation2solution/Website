@@ -51,16 +51,22 @@
   </script>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPJ8XCB3KE"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-CPJ8XCB3KE');
-  </script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+  gtag('js', new Date());
+  gtag('config', 'G-CPJ8XCB3KE');
+</script>
+<!-- Google Analytics loads only after the visitor accepts analytics cookies -->
+<script type="text/plain" data-i2s-consent="analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-CPJ8XCB3KE"></script>
 
-  <link rel="stylesheet" href="/assets/css/styles.css"/>
-  <link rel="stylesheet" href="/assets/css/cookie-consent.css"/>
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20261110g"/>
+<link rel="stylesheet" href="/assets/css/redesign.css?v=20261110g" />
+<link rel="icon" href="/assets/images/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="/assets/css/cookie-consent.css?v=20261110g"/>
 
   <style>
     /* ─── Article-specific layout ─── */
@@ -798,7 +804,7 @@
   <!-- ── NAV ── -->
   <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <a href="/" class="nav-logo">Innovation<span class="logo-accent">2</span>Solution</a>
+      <a href="/" class="nav-logo"><img src="/assets/images/i2s-logo-80.png" class="nav-mark" alt="" width="40" height="40" />Innovation<span class="logo-accent">2</span>Solution</a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1304,7 +1310,7 @@
 
           <div class="sidebar-cta">
             <h4>Talk to an expert</h4>
-            <p>Get practical IT strategy advice specific to your organisation. Free 30-minute discovery call with a senior consultant.</p>
+            <p>Get practical IT strategy advice specific to your organisation. Free 30-minute discovery call with one of our senior consultants.</p>
             <a href="/contact.html" class="btn btn-primary" style="display:block;text-align:center;font-size:0.875rem">Book a Free Call</a>
           </div>
         </aside>
@@ -1318,9 +1324,9 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="/" class="nav-logo">Innovation<span class="logo-accent">2</span>Solution</a>
+          <a href="/" class="nav-logo"><img src="/assets/images/i2s-logo-80.png" class="nav-mark" alt="" width="40" height="40" />Innovation<span class="logo-accent">2</span>Solution</a>
           <p>Specialist digital consultancy. 15+ years delivering transformation globally.</p>
-          <p class="footer-reg">Company No: 09476703 &middot; Registered in England &amp; Wales</p>
+          <p class="footer-reg">Innovation 2 Solution Limited &middot; Company No: 15126741 &middot; Registered in England &amp; Wales &middot; Registered office: 2 Wheeleys Road, Edgbaston, Birmingham B15 2LD</p>
         </div>
         <div class="footer-links">
           <h4>Services</h4>

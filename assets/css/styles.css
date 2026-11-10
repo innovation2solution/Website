@@ -765,3 +765,6 @@ strong { color: var(--text); font-weight: 600; }
     background-color: #0056b3 !important; 
     filter: brightness(1.1);
 }
+
+/* Owner-confirmation markers. check_confirms.py must report none before deploying. */
+mark.confirm{background:#ffe066;color:#111;padding:0 .25em;border-radius:3px;font-weight:600;font-size:.9em}
