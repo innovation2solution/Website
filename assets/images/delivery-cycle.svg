@@ -1,0 +1,33 @@
+<svg class="qa-cycle" style="background:#0A1F3C;font-family:sans-serif" viewBox="0 0 600 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="dc-t dc-d">
+<title id="dc-t">How we deliver</title>
+<desc id="dc-d">Six stages in a loop: understand, design, build, deliver, adopt and improve, which feeds back into understanding.</desc>
+<style>.ring{fill:none;stroke:rgba(255,255,255,.14);stroke-width:2;stroke-dasharray:4 6}.arc{fill:none;stroke:#7DD3FC;stroke-width:2.5}.node{fill:#122A52;stroke:rgba(125,211,252,.6);stroke-width:1.5}.node.alt{stroke:rgba(110,231,183,.7)}.num{fill:#7DD3FC;font:800 15px sans-serif;text-anchor:middle}.num.alt{fill:#6EE7B7}.lbl{fill:#fff;font:600 13px sans-serif;text-anchor:middle}.core{fill:rgba(3,105,161,.18);stroke:rgba(125,211,252,.35)}.core-t{fill:#fff;font:800 18px sans-serif;text-anchor:middle}</style><defs><marker id="qa-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7DD3FC"/></marker></defs>
+<circle class="ring" cx="300" cy="280" r="170"/>
+<path class="arc" d="M344.3 115.9 A170 170 0 0 1 420.0 159.6" marker-end="url(#qa-arrow)"/>
+<path class="arc" d="M464.3 236.3 A170 170 0 0 1 464.3 323.7" marker-end="url(#qa-arrow)"/>
+<path class="arc" d="M420.0 400.4 A170 170 0 0 1 344.3 444.1" marker-end="url(#qa-arrow)"/>
+<path class="arc" d="M255.7 444.1 A170 170 0 0 1 180.0 400.4" marker-end="url(#qa-arrow)"/>
+<path class="arc" d="M135.7 323.7 A170 170 0 0 1 135.7 236.3" marker-end="url(#qa-arrow)"/>
+<path class="arc" d="M180.0 159.6 A170 170 0 0 1 255.7 115.9" marker-end="url(#qa-arrow)"/>
+<circle class="core" cx="300" cy="280" r="92"/>
+<text class="core-t" x="300" y="274">Built to fit,</text>
+<text class="core-t" x="300" y="298">built to last</text>
+<circle class="node" cx="300.0" cy="110.0" r="27"/>
+<text class="num" x="300.0" y="115.0">01</text>
+<text class="lbl" x="300.0" y="53.0">Understand<tspan x="300.0" dy="17">discovery &amp; scoping</tspan></text>
+<circle class="node alt" cx="447.2" cy="195.0" r="27"/>
+<text class="num alt" x="447.2" y="200.0">02</text>
+<text class="lbl" x="484.2" y="192.0" style="text-anchor:start">Design<tspan x="484.2" dy="17">architecture &amp; UX</tspan></text>
+<circle class="node" cx="447.2" cy="365.0" r="27"/>
+<text class="num" x="447.2" y="370.0">03</text>
+<text class="lbl" x="484.2" y="362.0" style="text-anchor:start">Build<tspan x="484.2" dy="17">bespoke development</tspan></text>
+<circle class="node alt" cx="300.0" cy="450.0" r="27"/>
+<text class="num alt" x="300.0" y="455.0">04</text>
+<text class="lbl" x="300.0" y="497.0">Deliver<tspan x="300.0" dy="17">test, launch, migrate</tspan></text>
+<circle class="node" cx="152.8" cy="365.0" r="27"/>
+<text class="num" x="152.8" y="370.0">05</text>
+<text class="lbl" x="115.8" y="362.0" style="text-anchor:end">Adopt<tspan x="115.8" dy="17">training &amp; support</tspan></text>
+<circle class="node alt" cx="152.8" cy="195.0" r="27"/>
+<text class="num alt" x="152.8" y="200.0">06</text>
+<text class="lbl" x="115.8" y="192.0" style="text-anchor:end">Improve<tspan x="115.8" dy="17">iterate &amp; evolve</tspan></text>
+</svg>
